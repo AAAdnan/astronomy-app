@@ -1,65 +1,42 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Nav from '../components/Nav'
+import Footer from '../components/Footer'
+import React from "react";
+import Link from 'next/link'
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+const Home = () => {
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+  return(
+  <>
+    <Nav />
+    <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white">
+      <section className="w-full flex justify-between ">
+        <div>
+          <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white">
+          Topnomi
+          </h1>
+          <Link href="/store">
+              <button className="bg-black text-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:bg-orange-600">
+                Near Me
+              </button>
+          </Link>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+        <div className="text-xl lg:text-3xl font-bold uppercase text-white">
+          <p>
+            Take a photo.
+          </p>
+          <p>
+            Upload.
+          </p>
+          <p>
+            Recognise the constellation.
+          </p>
+        </div>
+      </section>
+      <Footer />
     </div>
+  </>
   )
-}
+};
+
+export default Home;
