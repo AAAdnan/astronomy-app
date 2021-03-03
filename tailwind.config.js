@@ -9,7 +9,6 @@ module.exports = {
         'skyline': "url('/skyline.jpg')",
       })
     },
-  },
   variants: {
     extend: {},
   },
