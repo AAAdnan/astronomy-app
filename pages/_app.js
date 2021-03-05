@@ -1,20 +1,16 @@
 import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
+import { ApolloProvider } from "@apollo/client";
+import { useApollo } from "../lib/apolloClient";
 
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+export default function App({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps.initialApolloState);
 
-const client = new ApolloClient({
-  uri: 'https://lingering-leaf.us-west-2.aws.cloud.dgraph.io/graphql',
-  cache: new InMemoryCache()
-});
-
-
-function MyApp({ Component, pageProps }) {
   return (
-    <ApolloProvider client={client}>
-      <Component {...pageProps} />
+    <ApolloProvider client={apolloClient}>
+      <div style={{ margin: "20px" }}>
+        <Component {...pageProps} />
+      </div>
     </ApolloProvider>
-  )
+  );
 }
-
-export default MyApp
