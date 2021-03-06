@@ -11,42 +11,37 @@ const Nav = () => {
                 </div>
                 <ul className="flex">
                 <Link href="/photooftheday">
-                    <li className="ml-24 uppercase">
-                        <div className="flex items-center justify-end">
-                            <div className="w-10 border-b border-solid border-white"></div>
-                            <h1 className="ml-3 text-3xl font-bold">1</h1>
+                    <li className="ml-24 uppercase cursor-pointer">
+                        <div className="flex items-center justify-center text-4xl">
+                                <i class="fas fa-camera "></i> 
                         </div>
-                        <div className="text-right">Photo of the day</div>
+                        <div className="text-right mt-2">Photo of the day</div>
                     </li>
                 </Link>
-                <li className="ml-24">
-                    <a href="">
-                    <div className="flex items-center justify-end">
-                        <div className="w-10 border-b border-solid border-white"></div>
-                        <h1 className="ml-3 text-3xl font-bold">2</h1>
-                    </div>
-                    <div className="text-right">Find Me</div>
-                    </a>
-                </li>
-                <li className="ml-24">
-                    <a href="">
-                    <div className="flex items-center justify-end">
-                        <div className="w-10 border-b border-solid border-white"></div>
-                        <h1 className="ml-3 text-3xl font-bold">3</h1>
-                    </div>
-                    <div className="text-right">Register</div>
-                    </a>
-                </li>
-
-                <li className="ml-24">
-                    <a href="">
-                    <div className="flex items-center justify-end">
-                        <div className="w-10 border-b border-solid border-white"></div>
-                        <h1 className="ml-3 text-3xl font-bold">4</h1>
-                    </div>
-                    <div className="text-right">Sign In</div>
-                    </a>
-                </li>
+                <Link href="/photooftheday">
+                    <li className="ml-24 uppercase">
+                        <div className="flex items-center justify-center text-4xl">
+                            <i class="fas fa-globe-asia"></i>
+                        </div>
+                        <div className="text-right mt-2">Find Me</div>
+                    </li>
+                </Link>
+                <Link href="/photooftheday">
+                    <li className="ml-24 uppercase">
+                        <div className="flex items-center justify-center text-4xl">
+                            <i class="fas fa-cash-register"></i>
+                        </div>
+                        <div className="text-right mt-2">Register</div>
+                    </li>
+                </Link>
+                <Link href="/photooftheday">
+                    <li className="ml-24 uppercase">
+                        <div className="flex items-center justify-center text-4xl">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <div className="text-right mt-2">Sign In</div>
+                    </li>
+                </Link>
                 </ul>
             </div>
         </header>
