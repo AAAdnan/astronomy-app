@@ -9,6 +9,9 @@ const Home = () => {
   return(
   <>
     <Nav />
+    <Head>
+      <title>Home</title>
+    </Head>
     <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white">
       <section className="w-full flex justify-between ">
         <div>
