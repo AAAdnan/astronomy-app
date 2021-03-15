@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
 import ReactPlayer from "react-player"
+import Head from 'next/head'
+import Nav from '../components/Nav'
 import fetch from 'isomorphic-unfetch'
 
 function getPhotoOfTheDay(props) {
 
-    console.log(props)
-
-    return(
-        <div>
-            <div>
-                {props.title}
-            </div>
-            <div>
-                {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img src={props.imageUrl} />}
-            </div>
-            <div>
-                {props.explanation}
+    return(<>
+        <Nav />
+        <Head>
+            <title>Photo of the day</title>
+        </Head>
+        <div className="flex items-center px-6 lg:px-32 bg-black text-white">
+            <div className="flex flex-col">
+                <h1 className="text-white">
+                    {props.title} 
+                </h1>
+                <div className="text-xl lg:text-3xl font-bold uppercase text-white">
+                    {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img className="object-scale-down" src={props.imageUrl} />}  
+                </div>
+                <div>
+                    {props.explanation}
+                </div>
             </div>
         </div>
+        </>
     )
 
 }
