@@ -7,23 +7,44 @@ import fetch from 'isomorphic-unfetch'
 function getPhotoOfTheDay(props) {
 
     return(<>
-        <Nav />
         <Head>
             <title>Photo of the day</title>
         </Head>
-        <div className="flex items-center px-6 lg:px-32 bg-black text-white">
-            <div className="flex flex-col">
-                <h1 className="text-white">
-                    {props.title} 
-                </h1>
+        <Nav />
+        <div className="h-screen container px-6 lg:px-32 bg-black text-white">
+            <section className="w-full flex flex-col object-center">
+                <div className="flex flex-row justify-center ">
+                {/* <div>
+                    {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img className="transform scale-75" src={props.imageUrl} />}
+                </div> */}
                 <div className="text-xl lg:text-3xl font-bold uppercase text-white">
-                    {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img className="object-scale-down" src={props.imageUrl} />}  
+                    {props.title}
                 </div>
-                <div>
+                </div>
+                <div >
+                <h1 className="text-base lg:text-base font-bold uppercase text-white">
                     {props.explanation}
-                </div>
+                </h1>
             </div>
+            </section>
         </div>
+    {/* <div className="container flex px-6 lg:px-32 bg-black text-white">
+      <section>
+        <div className="w-full flex justify-between">   
+          <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white p-12">
+            {props.title}
+          </h1>
+          <h1>
+            {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img className="object-contain" src={props.imageUrl} />}
+          </h1>
+        </div>
+        <div >
+        <h1 className="text-base lg:text-base font-bold uppercase text-white">
+            {props.explanation}
+          </h1>
+        </div>
+      </section>
+    </div> */}
         </>
     )
 
@@ -33,6 +54,8 @@ export async function getStaticProps() {
     const res = await fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
 
     const data = await res.json()
+
+    console.log(data)
 
     return {
         props: {

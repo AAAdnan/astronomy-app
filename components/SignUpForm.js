@@ -5,13 +5,14 @@ import { setContext } from '@apollo/client/link/context';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Router from 'next/router'
 
-// const SIGN_UP = gql `
-//   mutation($email:String!, $password:String!, $name:String!) {
-//     signUpUser(email: $email, password: $password, name: $name,) {
-//       token
-//     }
-//   }
-// `
+const SIGN_UP = gql `
+  mutation($email:String!, $password:String!, $name:String!) {
+    signUpUser(email: $email, password: $password, name: $name,) {
+      token
+    }
+  }
+`
+
 const SignUpForm = () => {
 
 //   const[ signUp, { data, loading, error }] = useMutation(SIGN_UP)
