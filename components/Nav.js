@@ -48,15 +48,26 @@ const Nav = () => {
                     <div className="flex items-center justify-center text-2xl">
                         <i className="fas fa-cash-register"></i>
                     </div>
-                    <div className="text-right mt-2">Register</div>
+                    <div className="text-right mt-2">Login</div>
                 </li>
             </button>
+        )
+    }
+    const AlbumButton = () => {
+        return (
+            <Link href="/album">
+                <li className="ml-24 uppercase cursor-pointer">
+                    <div className="flex items-center justify-center text-2xl">
+                        <i class="fas fa-record-vinyl"></i>
+                    </div>
+                    <div className="text-right mt-2">Album</div>
+                </li>
+            </Link>
         )
     }
     
     return(        
         <header className="w-full absolute left-0 top-0 p-16 z-10">
-
             <div className="flex justify-between text-white">
                 <Link href="/">
                     <div className="text-4xl cursor-pointer">
@@ -80,6 +91,7 @@ const Nav = () => {
                         <div className="text-right mt-2">Find Me</div>
                     </li>
                 </Link>
+                {isAuthenticated && <AlbumButton /> }
                 {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
                 </ul>
             </div>
