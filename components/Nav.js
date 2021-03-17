@@ -53,6 +53,7 @@ const Nav = () => {
             </button>
         )
     }
+
     const AlbumButton = () => {
         return (
             <Link href="/album">
@@ -65,7 +66,20 @@ const Nav = () => {
             </Link>
         )
     }
-    
+
+    const UploadButton = () => {
+        return (
+            <Link href="/upload">
+                <li className="ml-24 uppercase cursor-pointer">
+                    <div className="flex items-center justify-center text-2xl">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <div className="text-right mt-2">Upload</div>
+                </li>
+            </Link>
+        )
+    }
+
     return(        
         <header className="w-full absolute left-0 top-0 p-16 z-10">
             <div className="flex justify-between text-white">
@@ -91,6 +105,7 @@ const Nav = () => {
                         <div className="text-right mt-2">Find Me</div>
                     </li>
                 </Link>
+                {isAuthenticated && <UploadButton /> }
                 {isAuthenticated && <AlbumButton /> }
                 {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
                 </ul>
