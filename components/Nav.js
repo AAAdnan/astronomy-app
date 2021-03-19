@@ -97,12 +97,12 @@ const Nav = () => {
                         <div className="text-right mt-2">Photo of the day</div>
                     </li>
                 </Link>
-                <Link href="/photooftheday">
+                <Link href="/geolocation">
                     <li className="ml-24 uppercase cursor-pointer">
                         <div className="flex items-center justify-center text-2xl">
                             <i className="fas fa-globe-asia"></i>
                         </div>
-                        <div className="text-right mt-2">Find Me</div>
+                        <div className="text-right mt-2">Geolocation</div>
                     </li>
                 </Link>
                 {isAuthenticated && <UploadButton /> }
