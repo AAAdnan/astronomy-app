@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useAuth0 } from '@auth0/auth0-react';
 
-
-
 const Nav = () => {
 
     const {
@@ -67,6 +65,19 @@ const Nav = () => {
         )
     }
 
+    const ToDoButton = () => {
+        return (
+            <Link href="/todo">
+                <li className="ml-24 uppercase cursor-pointer">
+                    <div className="flex items-center justify-center text-2xl">
+                        <i class="fas fa-record-vinyl"></i>
+                    </div>
+                    <div className="text-right mt-2">Todo</div>
+                </li>
+            </Link>
+        )
+    }
+
     const UploadButton = () => {
         return (
             <Link href="/upload">
@@ -107,6 +118,7 @@ const Nav = () => {
                 </Link>
                 {isAuthenticated && <UploadButton /> }
                 {isAuthenticated && <AlbumButton /> }
+                {isAuthenticated && <ToDoButton /> }
                 {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
                 </ul>
             </div>

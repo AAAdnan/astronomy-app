@@ -14,7 +14,7 @@ import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 import Footer from '../components/Footer'
 
-const GRAPHQL_ENDPOINT = 'https://lingering-leaf.us-west-2.aws.cloud.dgraph.io/graphql';
+const GRAPHQL_ENDPOINT = 'http://localhost:8080/graphql';
 
 const AuthorizedApolloProvider = ({ children }) => {
 
@@ -35,7 +35,7 @@ const AuthorizedApolloProvider = ({ children }) => {
     return {
       headers: {
         ...headers,
-        "X-Auth-Token": token? token>__raw: "",
+        "X-Auth-Token": token ? token>__raw: "",
       },
     }
   })
