@@ -32,10 +32,13 @@ const AuthorizedApolloProvider = ({ children }) => {
 
     const token = await getIdTokenClaims();
 
+
+   
+
     return {
       headers: {
         ...headers,
-        "X-Auth-Token": token ? token>__raw: "",
+        "X-Auth-Token": token ? token.__raw: "",
       },
     }
   })
