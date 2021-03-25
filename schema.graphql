@@ -1,0 +1,36 @@
+type User {
+  username: String! @id @search(by: [hash])
+  name: String @search(by: [exact])
+  albums: [Album] @hasInverse(field: user)
+  todos: [Todo] @hasInverse(field: user)
+}
+
+type Photo {
+    id: ID!,
+    title: String! 
+    url: String!
+}	
+
+type Todo {
+    id: ID!
+    title: String! @search(by: [fulltext])
+    description: String!
+    completed: Boolean! @search
+    user: User
+}
+
+type Album @auth(
+  query: { rule: """
+    query($USER: String!) {
+      queryAlbum {
+        user(filter: { username: { eq: $USER } }) {
+          __typename
+        }
+      }
+    }"""}), {
+  id: ID!
+  user: User!
+  photos:[Photo]
+}
+
+# Dgraph.Authorization { "VerificationKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6wz3RnIfCTqrBbjU9U+\nVypQAFYPheziL45DzDC4+6l3HbPtC8cttPUL46vLELBox0t89En1vgXnBnP0x3aA\ngf784RVFQ2YJ7iYeFOChau1OEff7nDfLjU5wETPqwH8SL4am66QgthOgTowUcYln\ne195N4XmVXvq81bX1/gO0uH1MhFSa0S5Mn5uwT+7zBBB6UdXhdRdHLZGFdD22Tt/\nFDID/QxnWHIf5zIClxAbZ+GNvXAVPDyTjnIFyk+6EUgCYrPWq5gKZB0eGND/yvv4\nwmAs2jjihCvPsEcIVIv9TAN2R9F861JcOB9CZ/uDsrOfLbehqa1he3I73uIQdzUb\nTQIDAQAB\n-----END PUBLIC KEY-----","Header": "Authorization","Namespace": "https://dgraph.io/jwt/claims","Algo": "RS256","Audience":["RMFhLDweiuNjrTgpCA8kJFe9YSbbJo0B"]}
