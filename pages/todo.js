@@ -1,42 +1,151 @@
-import React, { useEffect } from 'react';
-import { gql, useQuery, useMutation, useState } from '@apollo/client';
-// import history from './history';
-import TodoItem from '../components/TodoItem'
-import { GET_USER, GET_TODOS, ADD_USER, ADD_TODO, DELETE_TODO, TOGGLE_TODO, UPDATE_TODO, CLEAR_COMPLETED_TODO, TOGGLE_ALL_TODO } from "../pages/api/resolvers";
-import { useAuth0 } from '@auth0/auth0-react';
+import React from "react"
+import { useQuery, useMutation, gql } from "@apollo/client"
+import Head from 'next/head'
+import Nav from '../components/Nav'
+import { Todos } from "react-todomvc"
 
-const ENTER_KEY = 13
+import "react-todomvc/dist/todomvc.css"
 
-const TodoApp = () => {
-
-  const { user } = useAuth0();
-
-  const createUser = () => {
-    if (user === undefined) {
-      return null;
-    }
-    const { data: getUser } = getUsers({
-      username: user.email
-    });
-    if (getUser && getUser.getUser === null) {
-      const newUser = {
-        username: user.email,
-        name: user.nickname,
-      };
-      addUser({
-        variables: {
-          user: newUser
-        }
-      })
+const GET_TODOS = gql`
+  query {
+    queryTodo {
+      id
+      value
+      completed
     }
   }
+`
 
+const ADD_TODO = gql`
+  mutation addTodo($todo: AddTodoInput!) {
+    addTodo(input: [$todo]) {
+      todo {
+        id
+        value
+        completed
+      }
+    }
+  }
+`
+
+const UPDATE_TODO = gql`
+  mutation updateTodo($id: ID!, $todo: TodoPatch!) {
+    updateTodo(input: { filter: { id: [$id] }, set: $todo }) {
+      todo {
+        id
+        value
+        completed
+      }
+    }
+  }
+`
+
+const DELETE_TODO = gql`
+  mutation deleteTodo($id: ID!) {
+    deleteTodo(filter: { id: [$id] }) {
+      todo {
+        id
+      }
+    }
+  }
+`
+
+const CLEAR_COMPLETED_TODOS = gql`
+  mutation updateTodo {
+    deleteTodo(filter: { completed: true }) {
+      todo {
+        id
+      }
+    }
+  }
+`
+
+function App() {
+  const [add] = useMutation(ADD_TODO)
+  const [del] = useMutation(DELETE_TODO)
+  const [upd] = useMutation(UPDATE_TODO)
+  const [clear] = useMutation(CLEAR_COMPLETED_TODOS)
+
+  const { loading, error, data } = useQuery(GET_TODOS)
+
+  console.log(data)
+
+  if (loading) return <p>Loading</p>
+  if (error) {
+    return <p>`Error: ${error.message}`</p>
+  }
+
+  const addNewTodo = (value) =>
+    add({
+      variables: { todo: { value: value, completed: false } },
+      update(cache, { data }) {
+        const existing = cache.readQuery({ query: GET_TODOS })
+        cache.writeQuery({
+          query: GET_TODOS,
+          data: {
+            queryTodo: [
+              ...(existing ? existing.queryTodo : []),
+              ...data.addTodo.todo,
+            ],
+          },
+        })
+      },
+    })
+
+  const updateTodo = (modifiedTodo) =>
+    upd({
+      variables: {
+        id: modifiedTodo.id,
+        todo: {
+          value: modifiedTodo.value,
+          completed: modifiedTodo.completed,
+        },
+      },
+      update(cache, { data }) {
+        data.updateTodo.todo.map((t) =>
+          cache.modify({
+            id: cache.identify(t),
+            fields: {
+              value: () => t.value,
+              completed: () => t.completed,
+            },
+          })
+        )
+      },
+    })
+
+  const deleteTodo = (id) =>
+    del({
+      variables: { id },
+      update(cache, { data }) {
+        data.deleteTodo.todo.map(t => cache.evict({ id: cache.identify(t) }))
+      },
+    })
+
+  const clearCompletedTodos = () =>
+    clear({
+      update(cache, { data }) {
+        data.deleteTodo.todo.map(t => cache.evict({ id: cache.identify(t) }))
+      },
+    })
 
   return (
     <div>
-      <TodoItem />
+      <Head>
+        <title>Photo of the day</title>
+      </Head>
+      <Nav/>
+        <Todos
+          todos={data.queryTodo}
+          addNewTodo={addNewTodo}
+          updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
+          clearCompletedTodos={clearCompletedTodos}
+          todosTitle="GraphQL Todos"
+        />
     </div>
+  
   )
 }
 
-export default TodoApp
+export default App

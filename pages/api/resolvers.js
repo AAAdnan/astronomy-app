@@ -5,7 +5,7 @@ export const GET_USER = gql`
     getUser(username: $username) {
       username
       name
-      tasks {
+      todos  {
         id
         title
         completed
@@ -36,77 +36,53 @@ export const GET_TODOS = gql`
 `;
 
 export const ADD_TODO = gql`
-  mutation addTask($task: [AddTaskInput!]!) {
-    addTask(input: $task) {
-      task {
+  mutation addTodo($todo: [AddTodoInput!]!) {
+    addTodo(input: [$todo]) {
+      todo {
         id
         title
-      }
-    }
-  }
-`;
-
-export const TOGGLE_TODO = gql`
-  mutation updateTask($taskID: ID!, $completed: Boolean!) {
-    updateTask(input: {
-      filter: { id: [$taskID] },
-      set: {
-        completed: $completed
-      }
-    }) {
-      task {
-        id
-        title
+        description
         completed
       }
-    }
-  }
-`;
-
-export const TOGGLE_ALL_TODO = gql`
-  mutation updateTask($completed: Boolean!) {
-    updateTask(input: {
-      filter: {},
-      set: {
-        completed: $completed
-      }
-    }) {
-      task {
-        id
-        title
-        completed
-      }
-    }
-  }
-`;
-
-export const DELETE_TODO = gql`
-  mutation deleteTask($taskID: [ID!]) {
-    deleteTask(filter: { id: $taskID }) {
-      msg
     }
   }
 `;
 
 export const UPDATE_TODO = gql`
-  mutation updateTask($taskID: ID!, $task: TaskPatch!) {
-    updateTask(input: {
-      filter: { id: [$taskID] },
-      set: $task
-    }) {
-      task {
+  mutation updateTodo($id: ID!, $todo: TodoPatch!) {
+    updateTodo(input: { filter: { id: [$id] }, set: $todo }) {
+      todo {
         id
         title
+        description
         completed
       }
     }
   }
-`;
+`
 
-export const CLEAR_COMPLETED_TODO = gql`
-  mutation updateTask($completed: Boolean) {
-    deleteTask(filter: { completed: $completed }) {
-      msg
+const DELETE_TODO = gql`
+  mutation deleteTodo($id: ID!) {
+    deleteTodo(filter: { id: [$id] }) {
+      todo {
+        id
+        title
+        description
+        completed
+      }
     }
   }
-`;
+`
+
+const CLEAR_COMPLETED_TODOS = gql`
+  mutation updateTodo {
+    deleteTodo(filter: { completed: true }) {
+      todo {
+        id
+        title
+        description
+        completed
+      }
+    }
+  }
+`

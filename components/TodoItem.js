@@ -1,48 +1,160 @@
-import { useSubscription, gql,useQuery } from "@apollo/client";
-import { GET_USER, GET_TODOS } from "../pages/api/resolvers";
+import React from "react"
+import { useQuery, useMutation, gql } from "@apollo/client"
+import { Todos } from "react-todomvc"
+import Head from 'next/head'
+import Nav from '../components/Nav'
+import { useAuth0 } from '@auth0/auth0-react';
+
+import 'todomvc-app-css/index.css'
+
+<Todos
+todos={data.queryTodo}
+addNewTodo={addNewTodo}
+updateTodo={updateTodo}
+deleteTodo={deleteTodo}
+clearCompletedTodos={clearCompletedTodos}
+todosTitle="Todos"
+/>
+
+
+
+const GET_TODOS = gql`
+  query {
+    queryTodo {
+      id
+      value
+      completed
+    }
+  }
+`
+
+const ADD_TODO = gql`
+  mutation addTodo($todo: AddTodoInput!) {
+    addTodo(input: [$todo]) {
+      todo {
+        id
+        value
+        completed
+      }
+    }
+  }
+`
+
+const UPDATE_TODO = gql`
+  mutation updateTodo($id: ID!, $todo: TodoPatch!) {
+    updateTodo(input: { filter: { id: [$id] }, set: $todo }) {
+      todo {
+        id
+        value
+        completed
+      }
+    }
+  }
+`
+
+const DELETE_TODO = gql`
+  mutation deleteTodo($id: ID!) {
+    deleteTodo(filter: { id: [$id] }) {
+      todo {
+        id
+      }
+    }
+  }
+`
+
+const CLEAR_COMPLETED_TODOS = gql`
+  mutation updateTodo {
+    deleteTodo(filter: { completed: true }) {
+      todo {
+        id
+      }
+    }
+  }
+`
 
 const TodoItem = () => {
-  const { loading, error, data } = useQuery(GET_TODOS);
+  const [add] = useMutation(ADD_TODO)
+  const [del] = useMutation(DELETE_TODO)
+  const [upd] = useMutation(UPDATE_TODO)
+  const [clear] = useMutation(CLEAR_COMPLETED_TODOS)
+
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+  const { loading, error, data } = useQuery(GET_TODOS)
 
   console.log(data)
+  if (loading) return <p>Loading</p>
 
-  if (loading) return <p>Loading...</p>;
-  if (error) { 
-    
-    console.error(error)
-    
-    return <p>Error  :</p>; 
-  
+
+  if (error) {
+    return <p>`Error: ${error.message}`</p>
   }
 
+  const addNewTodo = (value) =>
+    add({
+      variables: { todo: { value: value, completed: false, user: { username: user.email } } },
+      update(cache, { data }) {
+        const existing = cache.readQuery({ query: GET_TODOS })
+        cache.writeQuery({
+          query: GET_TODOS,
+          data: {
+            queryTodo: [
+              ...(existing ? existing.queryTodo : []),
+              ...data.addTodo.todo,
+            ],
+          },
+        })
+      },
+    })
 
-    return (
+  const updateTodo = (modifiedTodo) =>
+    upd({
+      variables: {
+        id: modifiedTodo.id,
+        todo: {
+          value: modifiedTodo.value,
+          completed: modifiedTodo.completed,
+        },
+      },
+      update(cache, { data }) {
+        data.updateTodo.todo.map((t) =>
+          cache.modify({
+            id: cache.identify(t),
+            fields: {
+              value: () => t.value,
+              completed: () => t.completed,
+            },
+          })
+        )
+      },
+    })
 
-      data.length !== 0 ? 
+  const deleteTodo = (id) =>
+    del({
+      variables: { id },
+      update(cache, { data }) {
+        data.deleteTodo.todo.map(t => cache.evict({ id: cache.identify(t) }))
+      },
+    })
 
-    <div className="bg-blue w-full p-8 flex justify-center font-sans">
-      {data.queryTodo.map(({ id, title, description, completed }) => (
-        <div className="rounded bg-grey-light w-64 p-2">
-        <div className="flex justify-between py-1">
-          <h3 className="text-sm">Todos</h3>
-          <svg className="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"/></svg>
-        </div>
-        <div className="text-sm mt-2">
-        <h4 className="text-sm">{ title }</h4>
-          <div className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
-              {description}
-        </div>
-        <div className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
-         { completed ? "Done" : "Pending"}
-         </div>
-          <p className="mt-3 text-grey-dark">Add a card...</p>
-        </div>
-      </div>
-      ))}
+  const clearCompletedTodos = () =>
+    clear({
+      update(cache, { data }) {
+        data.deleteTodo.todo.map(t => cache.evict({ id: cache.identify(t) }))
+      },
+    })
+
+
+  return (
+    <div>
+    <h1>todos</h1>
+    <input
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus={true}
+      />
     </div>
-
-    : <p className="text-white">No todos founds</p>
-    )
-};
+  )
+}
 
 export default TodoItem;

@@ -38,7 +38,6 @@ function uploadFile(file) {
             const response = JSON.parse(xhr.responseText);
 
             setImage(response.secure_url);
-            console.log(response.secure_url);
         }
     }; 
 

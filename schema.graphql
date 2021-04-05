@@ -1,8 +1,8 @@
 type User {
   username: String! @id @search(by: [hash])
-  name: String @search(by: [exact])
-  albums: [Album] @hasInverse(field: user)
+  name: String
   todos: [Todo] @hasInverse(field: user)
+  albums: [Album] @hasInverse(field: user)
 }
 
 type Photo {
@@ -11,12 +11,19 @@ type Photo {
     url: String!
 }	
 
-type Todo {
+type Todo @auth(
+    query: { rule: """
+        query($USER: String!) {
+            queryTodo {
+                user(filter: { username: { eq: $USER } }) {
+                    __typename
+                }
+            }
+        }"""}){
     id: ID!
-    title: String! @search(by: [fulltext])
-    description: String!
+    value: String! @search(by: [fulltext])
     completed: Boolean! @search
-    user: User
+    user: User!
 }
 
 type Album @auth(
