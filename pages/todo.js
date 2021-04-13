@@ -1,32 +1,58 @@
 import React from "react"
 import { useQuery, useMutation, gql } from "@apollo/client"
+import { useRef, useState, useEffect } from "react";
 import Head from 'next/head'
 import Nav from '../components/Nav'
 import { Todos } from "react-todomvc"
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 import "react-todomvc/dist/todomvc.css"
 
-const GET_TODOS = gql`
-  query {
-    queryTodo {
-      id
-      value
-      completed
-    }
-  }
-`
-
-const ADD_TODO = gql`
-  mutation addTodo($todo: AddTodoInput!) {
-    addTodo(input: [$todo]) {
-      todo {
+export const GET_USER = gql`
+  query getUser($username: String!){
+    getUser(username: $username) {
+      username
+      name
+      tasks {
         id
-        value
+        title
         completed
       }
     }
   }
-`
+`;
+
+export const ADD_USER = gql`
+  mutation addUser($user: AddUserInput!) {
+    addUser(input: [$user]) {
+      user {
+        username
+      }
+    }
+  }
+`;
+
+export const GET_TODOS = gql`
+  query {
+    queryTask {
+      id
+      title
+      completed
+    }
+  }
+`;
+
+export const ADD_TODO = gql`
+  mutation addTask($task: [AddTaskInput!]!) {
+    addTask(input: $task) {
+      task {
+        id
+        title
+      }
+    }
+  }
+`;
 
 const UPDATE_TODO = gql`
   mutation updateTodo($id: ID!, $todo: TodoPatch!) {
@@ -60,37 +86,83 @@ const CLEAR_COMPLETED_TODOS = gql`
   }
 `
 
+const useImperativeQuery = (query) => {
+  const { refetch } = useQuery(query, { skip: true });
+  const imperativelyCallQuery = (variables) => {
+    return refetch(variables);
+  };
+  return imperativelyCallQuery;
+};
+
 function App() {
-  const [add] = useMutation(ADD_TODO)
+
+  const [shownTodos, setShownTodos] = useState([]);
+
+  const [addTodo] = useMutation(ADD_TODO);
   const [del] = useMutation(DELETE_TODO)
   const [upd] = useMutation(UPDATE_TODO)
   const [clear] = useMutation(CLEAR_COMPLETED_TODOS)
+  const getUsers = useImperativeQuery(GET_USER)
 
-  const { loading, error, data } = useQuery(GET_TODOS)
 
-  console.log(data)
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  if (loading) return <p>Loading</p>
-  if (error) {
-    return <p>`Error: ${error.message}`</p>
+  const createUser = () => {
+    if (user === undefined) {
+      return null;
+    }
+    const { data: getUser } = getUsers({
+      username: user.email
+    });
+    if (getUser && getUser.getUser === null) {
+      const newUser = {
+        username: user.email,
+        name: user.nickname,
+      };
+      addUser({
+        variables: {
+          user: newUser
+        }
+      })
+    }
   }
 
-  const addNewTodo = (value) =>
-    add({
-      variables: { todo: { value: value, completed: false } },
-      update(cache, { data }) {
-        const existing = cache.readQuery({ query: GET_TODOS })
-        cache.writeQuery({
-          query: GET_TODOS,
-          data: {
-            queryTodo: [
-              ...(existing ? existing.queryTodo : []),
-              ...data.addTodo.todo,
-            ],
-          },
-        })
-      },
-    })
+
+  const { loading, error, data } = useQuery(GET_TODOS);
+
+  if(data) {
+    console.log(data)
+  }
+
+  const getData = () => {
+    if (loading) {
+      return null;
+    }
+    if (error) {
+      console.error(`GET_TODOS error: ${error}`);
+      return `Error: ${error.message}`;
+    }
+    if (data.queryTask) {
+      setShownTodos(data.queryTask)
+    }
+  }
+
+
+  useEffect(() => {
+    getData()
+    createUser()
+  }, [user, data]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const add = (title) =>
+  addTodo({
+    variables: { task: [
+      { title: title, completed: false, user: { username: user.email } }
+    ]},
+    refetchQueries: [{
+      query: GET_TODOS
+    }]
+  });
+
 
   const updateTodo = (modifiedTodo) =>
     upd({
@@ -129,15 +201,28 @@ function App() {
       },
     })
 
+  const logInOut = !isAuthenticated ? (
+    <p>
+      <a href="#" onClick={loginWithRedirect}>Log In</a> to use the app.
+    </p>
+  ) : (
+    <p>
+      <a href="#" onClick={() => {
+        logout({ returnTo: window.location.origin })
+      }}>Log out</a> { " "}
+      once you are finished, { user.email }
+    </p>
+  );
+
   return (
     <div>
       <Head>
         <title>Photo of the day</title>
       </Head>
-      <Nav/>
+      <logInOut />
         <Todos
-          todos={data.queryTodo}
-          addNewTodo={addNewTodo}
+          todos={shownTodos}
+          addNewTodo={add}
           updateTodo={updateTodo}
           deleteTodo={deleteTodo}
           clearCompletedTodos={clearCompletedTodos}

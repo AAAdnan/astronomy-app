@@ -3,6 +3,9 @@ import ReactPlayer from "react-player"
 import Head from 'next/head'
 import Nav from '../components/Nav'
 import fetch from 'isomorphic-unfetch'
+import Image from 'next/image'
+
+
 
 function getPhotoOfTheDay(props) {
 
@@ -10,41 +13,22 @@ function getPhotoOfTheDay(props) {
         <Head>
             <title>Photo of the day</title>
         </Head>
+        <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white overflow-hidden">
         <Nav />
-        <div className="h-screen container px-6 lg:px-32 bg-black text-white">
-            <section className="w-full flex flex-col object-center">
-                <div className="flex flex-row justify-center ">
-                {/* <div>
-                    {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img className="transform scale-75" src={props.imageUrl} />}
-                </div> */}
-                <div className="text-xl lg:text-3xl font-bold uppercase text-white">
+            <section className="w-full flex flex-col justify-center items-center mt-48 pb-24">
+                <div className="text-xl lg:text-3xl font-bold uppercase text-white mb-8">
                     {props.title}
                 </div>
-                </div>
+                {<div className="mb-8">
+                    {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <Image width={450} height={300} src={props.imageUrl} />}
+                </div> }
                 <div >
-                <h1 className="text-base lg:text-base font-bold uppercase text-white">
+                <h1 className="text-sm lg:text-base font-bold text-white">
                     {props.explanation}
                 </h1>
-            </div>
+                </div>
             </section>
         </div>
-    {/* <div className="container flex px-6 lg:px-32 bg-black text-white">
-      <section>
-        <div className="w-full flex justify-between">   
-          <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white p-12">
-            {props.title}
-          </h1>
-          <h1>
-            {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <img className="object-contain" src={props.imageUrl} />}
-          </h1>
-        </div>
-        <div >
-        <h1 className="text-base lg:text-base font-bold uppercase text-white">
-            {props.explanation}
-          </h1>
-        </div>
-      </section>
-    </div> */}
         </>
     )
 
