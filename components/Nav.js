@@ -92,7 +92,7 @@ const Nav = () => {
     }
 
     return(        
-        <header className="w-full absolute left-0 top-0 p-16 z-10">
+        <header className="w-full absolute left-0 top-0 p-16 z-10 overflow-hidden">
             <div className="flex justify-between text-white">
                 <Link href="/">
                     <div className="text-4xl cursor-pointer">
