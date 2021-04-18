@@ -5,10 +5,10 @@ type User {
 }
 
 type Photo {
-    id: ID!,
-    title: String! 
-    url: String!
-}	
+   id: ID!,
+   date: String! 
+   url: String!
+}
 
 type Task @auth(
     query: { rule: """

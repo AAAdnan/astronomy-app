@@ -1,10 +1,68 @@
 import { useRef, useState, useEffect } from "react";
+import { useQuery, useMutation, gql } from "@apollo/client"
+import { format, compareAsc } from 'date-fns'
+
+
 
 const ImageUploader = ({ defaultImage }) => {
   const fileSelect = useRef(null);
   const dropbox = useRef(null);
   const [image, setImage] = useState(defaultImage);
   const [progress, setProgress] = useState(0);
+
+  console.log('this is the image' + image)
+
+  //use effect, send image url to dgraph
+
+
+
+  const ADD_PHOTO = gql`
+    mutation addPhoto($photo: [AddPhotoInput!]!) {
+      addPhoto(input: $photo) {
+        photo {
+          id
+          date
+          url
+        }
+      }
+    }
+  `
+  const GET_PHOTOS = gql`
+    query {
+      queryPhoto {
+        id
+        date
+        url
+      }
+    }
+  `
+
+  const { loading, error, data } = useQuery(GET_PHOTOS);
+  const [addPhoto] = useMutation(ADD_PHOTO);
+
+
+  const handleSave = (url) =>
+    addPhoto({
+      variables: { photo: [
+        { url: url, date: format(Date.now(), 'MM/dd/yyyy') }
+      ]},
+      refetchQueries: [{
+        query: GET_PHOTOS
+      }]
+  });
+
+  const generateDate = () => {
+
+    console.log(format(Date.now(), 'MM/dd/yyyy'))
+
+  }
+
+  // useEffect(() => {
+
+   
+  // }, [image, data])
+
+
 
   async function handleImageUpload() {
       if (fileSelect) {
@@ -52,11 +110,7 @@ function uploadFile(file) {
 
 function handleCancel() {
     setImage(null);
-  }
-
-  function handleSave() {
-    console.log(image);
-    alert(image);
+    setProgress(0);
   }
 
   useEffect(() => {
@@ -112,7 +166,7 @@ function handleCancel() {
           </button>
           <button
             className="bg-blue-600 hover:bg-blue-800 border-2 border-blue-600 text-white px-4 py-2 rounded ml-2 w-1/2"
-            onClick={handleSave}
+            onClick={() => handleSave(image)}
             type="button"
           >
             Save to Album
@@ -136,6 +190,8 @@ function handleCancel() {
               >
                 Browse
               </button>
+
+              <button  type='button' onClick={() => generateDate()}>Click</button>
             </div>
           ) : (
             <span className="text-gray-700">{progress}%</span>
