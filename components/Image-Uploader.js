@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client"
 import { format, compareAsc } from 'date-fns'
-
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 
 const ImageUploader = ({ defaultImage }) => {
@@ -39,6 +39,8 @@ const ImageUploader = ({ defaultImage }) => {
 
   const { loading, error, data } = useQuery(GET_PHOTOS);
   const [addPhoto] = useMutation(ADD_PHOTO);
+  const { user } = useAuth0();
+
 
 
   const handleSave = (url) =>
@@ -57,15 +59,9 @@ const ImageUploader = ({ defaultImage }) => {
 
   }
 
-  // useEffect(() => {
-
-   
-  // }, [image, data])
-
-
 
   async function handleImageUpload() {
-      if (fileSelect) {
+      if (fileSelect.current) {
           fileSelect.current.click();
       }
   }
@@ -140,9 +136,12 @@ function handleCancel() {
     dropbox.current.addEventListener("drop", drop, false);
   
     return () => {
-      dropbox.current.removeEventListener("dragenter", dragEnter);
-      dropbox.current.removeEventListener("dragover", dragOver);
-      dropbox.current.removeEventListener("drop", drop);
+
+      if(dropbox.current) {
+        dropbox.current.removeEventListener("dragenter", dragEnter);
+        dropbox.current.removeEventListener("dragover", dragOver);
+        dropbox.current.removeEventListener("drop", drop);
+      }
     };
   }, []);
 

@@ -3,40 +3,49 @@ import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import React from "react";
 import Link from 'next/link'
+import ImageCard from '../components/ImageCard'
+import { useQuery, useMutation, gql } from "@apollo/client"
+import { useRef, useState, useEffect } from "react";
+
+
 
 const Album = () => {
 
+  const[images, setImages] = useState([]);
+
+  const GET_PHOTOS = gql`
+    query {
+      queryPhoto {
+        id
+        date
+        url
+      }
+    }
+  `
+
+  const { loading, error, data } = useQuery(GET_PHOTOS);
+
+  if(data) {
+    console.log(data.queryPhoto)
+    // setImages(data.queryPhoto)
+
+  }
+
+
   return(
   <>
-    <Nav />
     <Head>
       <title>Album</title>
     </Head>
-    <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white">
-      <section className="w-full flex justify-between ">
-        <div>
-          <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white">
-          Album
-          </h1>
-          <Link href="/store">
-              <button className="bg-black text-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:bg-orange-600">
-                Near Me
-              </button>
-          </Link>
+    <Nav />
+    <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white overflow-hidden">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-3 gap-4">
+          <ImageCard />
+          <ImageCard />
+          <ImageCard />
         </div>
-        <div className="text-xl lg:text-3xl font-bold uppercase text-white">
-          <p>
-            Take a photo.
-          </p>
-          <p>
-            Upload.
-          </p>
-          <p>
-            Recognise the constellation.
-          </p>
-        </div>
-      </section>
-      <Footer />
+      </div>
     </div>
   </>
   )
