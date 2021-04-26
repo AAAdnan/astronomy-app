@@ -1,5 +1,6 @@
 module.exports = {
     images: {
-      domains: ['apod.nasa.gov'],
+      loader: 'cloudinary',
+      domains: ['apod.nasa.gov', 'res.cloudinary.com'],
     },
   }

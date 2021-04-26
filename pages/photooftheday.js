@@ -9,14 +9,15 @@ import Image from 'next/image'
 
 function getPhotoOfTheDay(props) {
 
-    return(<>
+    return(
+        <>
+        <Nav />
         <Head>
             <title>Photo of the day</title>
         </Head>
         <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white overflow-hidden">
-        <Nav />
-            <section className="w-full flex flex-col justify-center items-center mt-48 pb-24">
-                <div className="text-xl lg:text-3xl font-bold uppercase text-white mb-8">
+            <section className="w-full flex flex-col justify-center items-center mt-12 pb-24">
+                <div className="text-3xl lg:text-3xl font-bold uppercase text-red-100 mb-8">
                     {props.title}
                 </div>
                 {<div className="mb-8">

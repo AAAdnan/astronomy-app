@@ -4,6 +4,29 @@ import Footer from '../components/Footer'
 import React from "react";
 import Link from 'next/link'
 
+// type User {
+//   username: String! @id @search(by: [hash])
+//   name: String
+//   todos: [Todo] @hasInverse(field: user)
+//   albums: [Album] @hasInverse(field: user)
+// }
+
+// type Todo @auth(
+//   query: { rule: """
+//       query($USER: String!) {
+//           queryTodo {
+//               user(filter: { username: { eq: $USER } }) {
+//                   __typename
+//               }
+//           }
+//       }"""}){
+//   id: ID!
+//   value: String! @search(by: [fulltext])
+//   completed: Boolean! @search
+//   user: User!
+// }
+
+
 const Home = () => {
 
   return(
