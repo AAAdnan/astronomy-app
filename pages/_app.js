@@ -33,8 +33,6 @@ const AuthorizedApolloProvider = ({ children }) => {
     const token = await getIdTokenClaims();
 
 
-   
-
     return {
       headers: {
         ...headers,
