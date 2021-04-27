@@ -21,8 +21,8 @@ const Nav = () => {
     const LogoutButton = () => {
         return (
                 <button onClick={() => logout({ returnTo: window.location.origin })}>
-                    <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                        <i className="fas fa-sign-out-alt"></i>
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                        <i className="fas fa-sign-out-alt text-white"></i>
                     <div className="uppercase">Logout</div>
                     </div>
                 </button>
@@ -32,7 +32,7 @@ const Nav = () => {
     const LoginButton = () => {
         return (
             <button onClick={() => loginWithRedirect()}>
-                <div className="cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                <div className="cursor-pointer text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
                         <i className="fas fa-sign-out-alt fa-lg"></i>
                     <div className="uppercase">Login</div>
                 </div>
@@ -42,8 +42,8 @@ const Nav = () => {
 
     const RegisterButton = () => {
         return (
-            <button className="cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" onClick={() => loginWithRedirect()}>
-                    <i className="fas fa-cash-register fa-lg"></i>
+            <button className="cursor-pointer text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" onClick={() => loginWithRedirect()}>
+                    <i className="fas fa-cash-register fa-lg text-white"></i>
                     <div className="uppercase">Login</div>
             </button>
         )
@@ -52,8 +52,8 @@ const Nav = () => {
     const AlbumButton = () => {
         return (
             <Link href="/album">
-                <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                    <i className="fas fa-record-vinyl fa-lg"></i>
+                <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <i className="fas fa-record-vinyl fa-lg text-white"></i>
                     <div className="uppercase">Album</div>
                 </div>
             </Link>
@@ -63,8 +63,8 @@ const Nav = () => {
     const SearchButton = () => {
       return (
           <Link href="/search">
-              <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                  <i className="fas fa-record-vinyl fa-lg"></i>
+              <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                  <i className="fas fa-record-vinyl fa-lg text-white"></i>
                   <div className="uppercase">Search</div>
               </div>
           </Link>
@@ -76,8 +76,8 @@ const Nav = () => {
         return (
             <>
             <Link href="/todo">
-                    <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                    <i className="fas fa-record-vinyl"></i>
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <i className="fas fa-record-vinyl text-white"></i>
                     Todo
                     </div>
             </Link>
@@ -88,8 +88,8 @@ const Nav = () => {
     const UploadButton = () => {
         return (
             <Link href="/upload">
-                <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                    <i className="fas fa-upload fa-lg "></i>
+                <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <i className="fas fa-upload fa-lg text-white"></i>
                     <div className="uppercase">Upload</div>
                 </div>
             </Link>
@@ -105,19 +105,19 @@ const Nav = () => {
             <div className="flex items-center">
                     <Link href="/">
                         <div>
-                            <i className="cursor-pointer fas fa-rocket fa-3x text-red-300 hover:text-red-100 "></i>
+                            <i className="cursor-pointer fas fa-rocket fa-3x text-white hover:text-red-100"></i>
                         </div>
                     </Link>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                 <Link href="/photooftheday">
-                    <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
                     <i className="fas fa-camera fa-lg text-white"></i>
                     <div className="uppercase">Photo of the day</div>
                     </div>
                 </Link>
                 <Link href="/geolocation">
-                    <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
                     <i className="fas fa-globe-asia fa-lg text-white"></i>
                     <div className="uppercase">Geolocation</div>
                     </div>
@@ -190,12 +190,12 @@ const Nav = () => {
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <Link href="/photooftheday">
-                    <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium uppercase">
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium uppercase">
                         Photo of the day
                     </div>
                 </Link>
                 <Link href="/geolocation">
-                    <div className="cursor-pointer text-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium uppercase">
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium uppercase">
                         Geolocation
                     </div>
                 </Link>

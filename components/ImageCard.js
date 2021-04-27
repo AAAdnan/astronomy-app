@@ -1,5 +1,15 @@
 import Image from 'next/image'
 
+const DELETE_TODO = gql`
+  mutation deleteTodo($id: ID!) {
+    deleteTodo(filter: { id: [$id] }) {
+      todo {
+        id
+      }
+    }
+  }
+`
+
 
 
 const ImageCard = ({date, image}) => {
