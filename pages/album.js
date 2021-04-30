@@ -22,6 +22,10 @@ const Album = () => {
 
   const { loading, error, data } = useQuery(GET_PHOTOS);
 
+  if(data) {
+    console.log(data)
+  }
+
   return(
   <>
     <Nav />
@@ -36,7 +40,7 @@ const Album = () => {
         <div className="grid grid-cols-3 gap-4">
         { data ? 
           data.queryPhoto.map(image => (
-            <ImageCard date={image.date} image={image.url} />
+            <ImageCard date={image.date} image={image.url} id={image.id} />
             ))
             :
             <p>There are no images</p>
