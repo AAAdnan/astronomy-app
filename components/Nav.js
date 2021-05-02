@@ -96,6 +96,17 @@ const Nav = () => {
         )
     }
 
+    const ProfileButton = () => {
+      return (
+          <Link href="/profile">
+              <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                  <i className="fas fa-user fa-lg text-white"></i>
+                  <div className="uppercase">Profile</div>
+              </div>
+          </Link>
+      )
+  }
+
     return(        
     <>
     <div>
@@ -125,12 +136,7 @@ const Nav = () => {
                 {isAuthenticated && <UploadButton /> }
                 {isAuthenticated && <AlbumButton /> }
                 {isAuthenticated && <SearchButton /> }
-                <Link href="/geolocation">
-                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                    <i className="fas fa-globe-asia fa-lg text-white"></i>
-                    <div className="uppercase">Profile</div>
-                    </div>
-                </Link>
+                {isAuthenticated && <ProfileButton /> }
                 <div className="pl-48">
                   {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
                 </div>
