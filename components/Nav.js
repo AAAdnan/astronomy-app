@@ -96,6 +96,17 @@ const Nav = () => {
         )
     }
 
+    const ProfileButton = () => {
+      return (
+          <Link href="/profile">
+              <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                  <i className="fas fa-user fa-lg text-white"></i>
+                  <div className="uppercase">Profile</div>
+              </div>
+          </Link>
+      )
+  }
+
     return(        
     <>
     <div>
@@ -125,8 +136,10 @@ const Nav = () => {
                 {isAuthenticated && <UploadButton /> }
                 {isAuthenticated && <AlbumButton /> }
                 {isAuthenticated && <SearchButton /> }
-                {isAuthenticated && <ToDoButton /> }
-                {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
+                {isAuthenticated && <ProfileButton /> }
+                <div className="pl-48">
+                  {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
+                </div>
                 </div>
               </div>
             </div>
@@ -190,13 +203,15 @@ const Nav = () => {
             <div className="md:hidden" id="mobile-menu">
               <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <Link href="/photooftheday">
-                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium uppercase">
-                        Photo of the day
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <i className="fas fa-camera fa-lg text-white"></i>
+                    <div className="uppercase">Photo of the day</div>
                     </div>
                 </Link>
                 <Link href="/geolocation">
-                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium uppercase">
-                        Geolocation
+                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <i className="fas fa-globe-asia fa-lg text-white"></i>
+                    <div className="uppercase">Geolocation</div>
                     </div>
                 </Link>
                 {isAuthenticated && <UploadButton /> }

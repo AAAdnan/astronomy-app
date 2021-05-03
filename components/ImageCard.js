@@ -1,18 +1,28 @@
 import Image from 'next/image'
+import { useQuery, useMutation, gql } from "@apollo/client"
 
-const DELETE_TODO = gql`
-  mutation deleteTodo($id: ID!) {
-    deleteTodo(filter: { id: [$id] }) {
-      todo {
+const DELETE_PHOTO = gql`
+  mutation deletePhoto($id: ID!) {
+    deletePhoto(filter: { id: [$id] }) {
+      photo {
         id
       }
     }
   }
 `
 
+// const delete = photo =>
+// deletePhoto({
+//   variables: {
+//     id: [photo.id]
+//   },
+//   refetchQueries: [{
+//     query: GET_
+//   }]
+// })
 
 
-const ImageCard = ({date, image}) => {
+const ImageCard = ({date, image, id}) => {
     return (
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
         <img src={image} alt="" className="w-full"/>
@@ -26,26 +36,15 @@ const ImageCard = ({date, image}) => {
               {date}
             </li>
             <li>
-              <strong>Downloads: </strong>
-              4000
-            </li>
-            <li>
-              <strong>Date: </strong>
-              4000
-            </li>
+            <strong>ID: </strong>
+            {id}
+          </li>
           </ul>
         </div>
         <div className="px-6 py-4">
           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-            Delete      
-          </span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
             Upload         
           </span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-             #tag3          
-          </span>
-          <button>Delete</button>
         </div>
       </div>
     )
