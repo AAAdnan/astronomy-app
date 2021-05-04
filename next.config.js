@@ -1,6 +1,7 @@
 module.exports = {
     images: {
-      loader: 'cloudinary',
-      domains: ['apod.nasa.gov', 'images.pexels.com'],
+      loader: 'default',
+      domains: ['apod.nasa.gov', 'images-assets.nasa.gov'],
+      path: "/_next/image",
     },
   }

@@ -1,21 +1,18 @@
 import Image from "next/image";
 
-const SearchCard = (props) => {
-
-    console.log(props)
+const SearchCard = ({ thumbnailUrl, nasaId }) => {
 
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <Image 
-            src={props.image} 
-            alt={props.alt}  
-            height={600}  
+            src={thumbnailUrl} 
+            height={400}  
             width={400}
             className="w-full" 
             />
         <div className="px-6 py-4">
             <div className="font-bold text-purple-500 text-xl mb-2">
-                Photo by John Doe
+                Nasa ID: {nasaId}
             </div>
             <ul>
                 <li>
