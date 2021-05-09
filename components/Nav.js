@@ -127,10 +127,10 @@ const Nav = () => {
                     <div className="uppercase">Photo of the day</div>
                     </div>
                 </Link>
-                <Link href="/geolocation">
+                <Link href="/iss">
                     <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
                     <i className="fas fa-globe-asia fa-lg text-white"></i>
-                    <div className="uppercase">Geolocation</div>
+                    <div className="uppercase">ISS</div>
                     </div>
                 </Link>
                 {isAuthenticated && <UploadButton /> }

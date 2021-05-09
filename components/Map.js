@@ -27,10 +27,9 @@ const Map = () => {
         const data = await response.json()
         setLat(data.iss_position.latitude)
         setLng(data.iss_position.longitude)
-        setCenter(lat, lng)
-        console.log(lat,lng)
+        setCenter({lat: lat, lng: lng })
+        console.log({ lat,lng })
         console.log(center)
-
     }
 
     return (
