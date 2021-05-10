@@ -217,7 +217,6 @@ const Nav = () => {
                 {isAuthenticated && <UploadButton /> }
                 {isAuthenticated && <AlbumButton /> }
                 {isAuthenticated && <SearchButton /> }
-                {isAuthenticated && <ToDoButton /> }
                 {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
               </div>
             </div>
