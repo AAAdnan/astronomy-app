@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import React from "react";
-import { getCuratedPhotos, getQueryPhotos } from '../lib/api'
 import { getNasaPhotos } from '../lib/nasa'
 import Link from 'next/link'
 import SearchCard from '../components/SearchCard'
@@ -16,11 +15,7 @@ const Search = ({ items }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [query, setQuery] = useState('');
 
-    console.log('these are the photos : ' + photos)
-
-
-    console.log(query)
-
+    console.log(items)
 
     const handleSubmit = async (e) => {
         await e.preventDefault();
@@ -61,6 +56,8 @@ const Search = ({ items }) => {
                   key={preview.data[0].nasa_id}
                   thumbnailUrl={preview.links[0].href}
                   nasaId={preview.data[0].nasa_id}
+                  description={preview.data[0].description}
+                  location={preview.data[0].location}
                  />
                 ))}
                 </div>
@@ -76,6 +73,7 @@ export async function getStaticProps() {
     );
     const previews = await results.json();
     const items = await previews.collection.items;
+
     return {
       props: { items },
     };
