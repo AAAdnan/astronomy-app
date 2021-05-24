@@ -11,6 +11,8 @@ import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloProvider } from "@apollo/client";
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+import { AnimatePresence, motion } from 'framer-motion'
+
 
 import Footer from '../components/Footer'
 
@@ -49,7 +51,7 @@ const AuthorizedApolloProvider = ({ children }) => {
   return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
 }
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, router }) {
   return (
     <Auth0Provider
       domain="dev-u0g-ju9g.eu.auth0.com"
@@ -58,7 +60,9 @@ export default function App({ Component, pageProps }) {
     >
     <AuthorizedApolloProvider>
       <div>
-        <Component {...pageProps} />
+        <AnimatePresence initial={false}>
+          <Component {...pageProps} key={router.route} />
+        </AnimatePresence>
       </div>
     </AuthorizedApolloProvider>
     </Auth0Provider>

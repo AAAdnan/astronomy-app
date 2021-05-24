@@ -9,9 +9,9 @@ const SpaceStation = () => <div><i className="fas fa-rocket fa-3x text-white hov
 
 const Map = () => {
 
-    const [lat, setLat] = useState(null);
-    const [lng, setLng] = useState(null);
-    const [center, setCenter] = useState({lat: 0 , lng: 0});
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
+    const [center, setCenter] = useState({ lat: 0, lng: 0 });
     const [status, setStatus] = useState(null);
     const [zoom, setZoom] = useState(1);
 
@@ -20,16 +20,22 @@ const Map = () => {
             loadISSData();
         },3000);
         return () => clearInterval(interval);
-    }, [center])
+    }, [])
+
+    useEffect(() => {
+        if ( !center && lat && lng ) {
+         setCenter({lat: lat, lng: lng })
+        }
+
+        console.log({ lat,lng })
+
+    }, [lat, lng])
 
     const loadISSData = async () => {
         const response = await fetch(ISS_URL);
         const data = await response.json()
         setLat(data.iss_position.latitude)
         setLng(data.iss_position.longitude)
-        setCenter({lat: lat, lng: lng })
-        console.log({ lat,lng })
-        console.log(center)
     }
 
     return (
@@ -39,6 +45,7 @@ const Map = () => {
                     <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100">Longitude: {lng}</p>
                 </div>
                 <div className = "map mb-8" style={{ height: '100vh', width: '100%' }}>
+                { center && 
                 <GoogleMapReact className = "map"
                     bootstrapURLKeys={{key: MAP_KEY }}
                     center={center}
@@ -48,7 +55,7 @@ const Map = () => {
                     lat = {lat}
                     lng = {lng}
                 />
-                </GoogleMapReact>
+                </GoogleMapReact> }
                 </div>
             </div>
         )
