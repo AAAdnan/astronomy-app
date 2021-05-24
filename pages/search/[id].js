@@ -8,6 +8,8 @@ import SearchCardInd from '../../components/SearchCardInd'
 
 export default function Photo({ result }) {
 
+    console.log(result)
+
     const thumbnailUrl = result.links[0].href
 
     const location = result.data[0].location

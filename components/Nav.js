@@ -2,12 +2,35 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Transition } from "@headlessui/react";
-
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Nav = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
+    const svgVariants = {
+        hidden: { rotate: -180 },
+        visible: { 
+          rotate: 0,
+          transition: { duration: 1 }
+        }
+      }
+
+    
+    const pathVariants = {
+        hidden: {
+        opacity: 0,
+        pathLength: 0
+        },
+        visible: {
+        opacity: 1,
+        pathLength: 1,
+        transition: {
+            duration: 2,
+            ease: "easeInOut"
+        }
+        }
+    }
 
     const {
         isLoading,
@@ -107,6 +130,23 @@ const Nav = () => {
       )
   }
 
+      {/* <motion.svg 
+          variants={svgVariants}
+          initial="hidden"
+          animate="visible"
+          className="pizza-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <motion.path
+            fill="none"
+            d="M40 40 L80 40 C80 40 80 80 40 80 C40 80 0 80 0 40 C0 40 0 0 40 0Z"
+            variants={pathVariants}
+          />
+          <motion.path
+            fill="none"
+            d="M50 30 L50 -10 C50 -10 90 -10 90 30 Z"
+            variants={pathVariants}
+          />
+        </motion.svg> */}
+
     return(        
     <>
     <div>
@@ -115,9 +155,12 @@ const Nav = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
                     <Link href="/">
-                        <div>
-                            <i className="cursor-pointer fas fa-rocket fa-3x text-white hover:text-red-100"></i>
-                        </div>
+                    <motion.div 
+                        drag
+                        dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+                        dragElastic={0.8}                    >
+                        <i className="cursor-pointer fas fa-rocket fa-3x text-white hover:text-red-100"></i>
+                    </motion.div>
                     </Link>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
