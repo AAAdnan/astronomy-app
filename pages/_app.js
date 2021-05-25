@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
-
+import Layout from '../components/Layout';
 import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloProvider } from "@apollo/client";
@@ -59,11 +59,11 @@ export default function App({ Component, pageProps, router }) {
       redirectUri={'http://localhost:3000/'}
     >
     <AuthorizedApolloProvider>
-      <div>
         <AnimatePresence initial={false}>
-          <Component {...pageProps} key={router.route} />
+          <Layout>
+            <Component {...pageProps} key={router.route} />
+          </Layout>
         </AnimatePresence>
-      </div>
     </AuthorizedApolloProvider>
     </Auth0Provider>
   );

@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 
-
-
 // type User {
 //   username: String! @id @search(by: [hash])
 //   name: String
@@ -30,16 +28,28 @@ import { motion } from 'framer-motion';
 //   user: User!
 // }
 
+const buttonVariants = {
+  hover: {
+    scale: 1.1,
+    opacity: 1,
+    textShadow: "0px 0px 8px rgb(255,255,255)",
+    boxShadow: "0px 0px 8px rgb(255,255,255)",
+    transition: {
+      duration: 0.3,
+      yoyo: 5
+    }
+  }
+}
 
 const Home = () => {
 
   return(
   <>
-    <Nav />
     <Head>
       <title>Home</title>
     </Head>
-    <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white">
+    <Nav />
+    <div className="h-screen flex items-center px-6 lg:px-32 text-white">
       <section className="w-full flex align-center justify-between">
         <div className="flex-col items-center">
           <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white"
@@ -47,7 +57,10 @@ const Home = () => {
           Topnomi
           </h1>
           <Link href="/store">
-              <motion.button className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded-full">
+              <motion.button className="bg-transparent border-white	opacity-70 text-white font-bold mt-4 py-2 px-4 rounded-full"
+                variants={buttonVariants}
+                whileHover="hover"
+              >
                 Near Me
               </motion.button>
           </Link>

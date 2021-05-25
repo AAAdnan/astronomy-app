@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Nav from '../components/Nav'
 import fetch from 'isomorphic-unfetch'
 import Image from 'next/image'
-
+import { motion } from 'framer-motion';
 
 
 function getPhotoOfTheDay(props) {
@@ -15,9 +15,13 @@ function getPhotoOfTheDay(props) {
         <Head>
             <title>Photo of the day</title>
         </Head>
-        <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white overflow-hidden">
-            <section className="w-full flex flex-col justify-center items-center mt-12 pb-24">
-                <div className="text-3xl lg:text-3xl font-bold uppercase text-red-100 mb-8">
+        <motion.div className="h-screen flex items-center px-6 lg:px-32 text-white overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1.5 }}
+        >
+            <section className="w-full flex flex-col justify-center items-center mt-16 pb-24">
+                <div className="text-4xl lg:text-3xl font-bold uppercase text-red-200 mb-8">
                     {props.title}
                 </div>
                 {<div className="mb-8">
@@ -29,7 +33,7 @@ function getPhotoOfTheDay(props) {
                 </h1>
                 </div>
             </section>
-        </div>
+        </motion.div>
         </>
     )
 
@@ -39,8 +43,6 @@ export async function getStaticProps() {
     const res = await fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
 
     const data = await res.json()
-
-    console.log(data)
 
     return {
         props: {
