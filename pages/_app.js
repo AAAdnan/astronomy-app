@@ -6,6 +6,9 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
+
+
+
 import Layout from '../components/Layout';
 import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import { setContext } from '@apollo/client/link/context';

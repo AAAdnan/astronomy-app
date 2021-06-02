@@ -10,15 +10,11 @@ const Particle = () => {
 
   return(
   <>
-    <Nav />
     <Head>
       <title>Home</title>
     </Head>
-    <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white">
+    <Nav />
     <ParticleComponent />
-      <h1>Testing</h1>
-    </div>
-      <Footer />
   </>
   )
 };
