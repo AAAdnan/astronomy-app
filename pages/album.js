@@ -43,7 +43,7 @@ const Album = () => {
             <ImageCard date={image.date} image={image.url} id={image.id} />
             ))
             :
-            <p>There are no images</p>
+            <p className="text-white">No Saved Images</p>
           }
           </div>
       </div>
