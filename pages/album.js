@@ -32,7 +32,7 @@ const Album = () => {
     <Head>
       <title>Album</title>
     </Head>
-    <div className="h-screen bg-black">
+    <div className="h-screen">
     <div className="text-center bg-black text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
       Album
     </div>
@@ -43,7 +43,7 @@ const Album = () => {
             <ImageCard date={image.date} image={image.url} id={image.id} />
             ))
             :
-            <p>There are no images</p>
+            <p className="text-white">No Saved Images</p>
           }
           </div>
       </div>

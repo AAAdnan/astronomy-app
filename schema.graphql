@@ -1,7 +1,7 @@
 type User {
   username: String! @id @search(by: [hash])
   name: String
-  tasks: [Task] @hasInverse(field: user)
+  tasks: [Task]
 }
 
 type Photo {
@@ -10,19 +10,11 @@ type Photo {
    url: String!
 }
 
-type Task @auth(
-    query: { rule: """
-        query($USER: String!) {
-            queryTask {
-                user(filter: { username: { eq: $USER } }) {
-                    __typename
-                }
-            }
-        }"""}){
+
+type Task {
     id: ID!
     title: String! @search(by: [fulltext])
     completed: Boolean! @search
-    user: User!
 }
 
 type Album @auth(

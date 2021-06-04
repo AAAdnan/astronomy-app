@@ -54,6 +54,7 @@ const Search = ({ items }) => {
                     photos.map((preview) => (
                 <SearchCard
                   key={preview.data[0].nasa_id}
+                  date={preview.data[0].date_created}
                   thumbnailUrl={preview.links[0].href}
                   nasaId={preview.data[0].nasa_id}
                   description={preview.data[0].description}
