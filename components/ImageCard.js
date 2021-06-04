@@ -2,9 +2,6 @@ import Image from 'next/image'
 import { useQuery, useMutation, gql } from "@apollo/client"
 import { motion } from 'framer-motion';
 
-
-
-
 const ImageCard = ({date, image, id}) => {
 
   const buttonVariants = {
@@ -40,29 +37,28 @@ const ImageCard = ({date, image, id}) => {
       }
     }
   `
-  const DELETE_PHOTO = gql`
-    mutation deletePhoto($id: ID!) {
-      deletePhoto(filter: { id: [$id] }) {
-       photo {
-         id
-        }
-      }
-    }
-  `
+  // const DELETE_PHOTO = gql`
+  //   mutation deletePhoto($id: [ID!]) {
+  //     deletePhoto(filter: { id: [$id] }) {
+  //      photo {
+  //        id
+  //       }
+  //     }
+  //   }
+  // `
 
-  const [deletePhoto] = useMutation(DELETE_PHOTO);
+  // const [deletePhoto] = useMutation(DELETE_PHOTO);
 
-
-  const deleteSelectedPhoto = id =>
-    console.log(id)
-    deletePhoto({
-      variables: {
-      id: [id]
-    },
-      refetchQueries: [{
-      query: GET_PHOTOS
-    }]
-  })
+  // const deleteSelectedPhoto = id =>
+  //   console.log(id)
+  //   deletePhoto({
+  //     variables: {
+  //     id: [id]
+  //   },
+  //     refetchQueries: [{
+  //     query: GET_PHOTOS
+  //   }]
+  // })
 
     return (
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
