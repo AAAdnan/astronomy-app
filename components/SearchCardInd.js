@@ -23,16 +23,18 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location }) => {
       }
 
     return (
-            <div className="max-w-4xl flex-col justify-center items-center rounded overflow-hidden shadow-lg">
+            <div className="max-w-4xl mt-8 border-2 border-white flex-col justify-center items-center rounded overflow-hidden shadow-lg">
                 <Link href={`/search/${nasaId}`}>
-                <Image 
-                    src={thumbnailUrl} 
-                    height={450}  
-                    width={450}
-                    className="w-full cursor-pointer" 
-                    />
+                <div className="flex justify-center mt-24">
+                    <Image 
+                        src={thumbnailUrl} 
+                        height={450}  
+                        width={450}
+                        className="w-full cursor-pointer" 
+                        />
+                </div>
                 </Link>        
-                <div className="px-6 py-4 cursor-pointer">
+                <div className="flex-col items-center px-6 py-4 cursor-pointer">
                     <div className="font-bold text-red-100 text-xl mb-2">
                         {location}
                     </div>
@@ -45,7 +47,7 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location }) => {
                 </div>
                 <div className="px-6 py-4 flex justify-center">
                     <motion.button 
-                    onClick={() => uploadPhotoToAlbum( thumbnailUrl )}
+                    onClick={() => uploadPhotoToAlbum( thumbnailUrl, date )}
                     variants={buttonVariants}
                     whileHover="hover" 
                     className="text-white border-2 rounded p-4">Save to Album

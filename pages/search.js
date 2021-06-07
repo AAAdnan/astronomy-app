@@ -15,8 +15,6 @@ const Search = ({ items }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [query, setQuery] = useState('');
 
-    console.log(items)
-
     const handleSubmit = async (e) => {
         await e.preventDefault();
         if (query == "") {
