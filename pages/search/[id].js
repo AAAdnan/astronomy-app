@@ -8,8 +8,6 @@ import SearchCardInd from '../../components/SearchCardInd'
 
 export default function Photo({ result }) {
 
-    console.log(result)
-
     const thumbnailUrl = result.links[0].href
 
     const location = result.data[0].location
@@ -25,10 +23,8 @@ export default function Photo({ result }) {
           <title>Image</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className="h-screen flex items-center px-6 lg:px-32 bg-black text-white overflow-hidden">
-            <section className="mt-24">
+        <div className="flex justify-center px-6 lg:px-32 bg-black text-white overflow-hidden">
                 <SearchCardInd thumbnailUrl={thumbnailUrl} location={location} description={description} id={id}/>
-            </section>
         </div>
         </>
     )
