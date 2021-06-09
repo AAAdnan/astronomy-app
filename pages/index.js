@@ -51,15 +51,15 @@ const Home = () => {
     </Head>
     <Nav />
     <ParticleComponent />
-    <div className="flex items-center px-6 lg:px-32 text-white">
+    <div className="absolute top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 flex items-center px-6 lg:px-32 text-white">
       <section className="w-full flex align-center justify-between">
-        <div className="flex-col items-center">
+        <div className="flex-col align-center">
             <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white"
             >
             Topnomi
             </h1>
-            <Link href="/store">
-                <motion.button className="bg-transparent border-white	opacity-70 text-white font-bold mt-4 py-2 px-4 rounded-full"
+            <Link href="/iss">
+                <motion.button className="bg-transparent border-white	opacity-70 text-white font-bold mt-4 ml-12 py-2 px-4 rounded-full"
                 variants={buttonVariants}
                 whileHover="hover"
                 >

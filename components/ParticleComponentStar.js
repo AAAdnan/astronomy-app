@@ -51,9 +51,6 @@ export default () => (
               sync: false
             }
           },
-          "links": {
-            "enable": true
-          },
           line_linked: {
             enable: true,
             distance: 0,

@@ -37,28 +37,30 @@ const ImageCard = ({date, image, id}) => {
       }
     }
   `
-  // const DELETE_PHOTO = gql`
-  //   mutation deletePhoto($id: [ID!]) {
-  //     deletePhoto(filter: { id: [$id] }) {
-  //      photo {
-  //        id
-  //       }
-  //     }
-  //   }
-  // `
+  const DELETE_PHOTO = gql`
+    mutation deletePhoto($id: ID!) {
+      deletePhoto(filter: { id: [$id] }) {
+       photo {
+         id
+        }
+      }
+    }
+  `
 
-  // const [deletePhoto] = useMutation(DELETE_PHOTO);
+  const [deletePhoto] = useMutation(DELETE_PHOTO);
 
-  // const deleteSelectedPhoto = id =>
-  //   console.log(id)
-  //   deletePhoto({
-  //     variables: {
-  //     id: [id]
-  //   },
-  //     refetchQueries: [{
-  //     query: GET_PHOTOS
-  //   }]
-  // })
+  const deleteSelectedPhoto = id => {
+    
+  console.log(id)
+  
+  deletePhoto({
+    variables: {
+    id: id
+  },
+      refetchQueries: [{
+      query: GET_PHOTOS
+    }]
+  })}
 
     return (
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
