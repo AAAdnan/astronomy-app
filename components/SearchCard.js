@@ -22,7 +22,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
         }
     `
 
-    // const { loading, error, data } = useQuery(GET_PHOTOS);
+    const { loading, error, data } = useQuery(GET_PHOTOS);
 
     // if(data.queryPhoto) {
 
@@ -42,7 +42,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
             }
             }
         }
-        `
+    `
 
   const [addPhoto] = useMutation(ADD_PHOTO);
     
