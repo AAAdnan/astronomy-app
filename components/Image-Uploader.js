@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client"
 import { format, compareAsc } from 'date-fns'
+import ImageSaveSuccessAlert from '../components/ImageSaveSuccessAlert';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 
@@ -9,12 +10,12 @@ const ImageUploader = ({ defaultImage }) => {
   const dropbox = useRef(null);
   const [image, setImage] = useState(defaultImage);
   const [progress, setProgress] = useState(0);
+  const [ imageSuccessAlert , setImageSuccessAlert ] = useState(false);
+
 
   console.log('this is the image' + image)
 
   //use effect, send image url to dgraph
-
-
 
   const ADD_PHOTO = gql`
     mutation addPhoto($photo: [AddPhotoInput!]!) {
@@ -27,38 +28,22 @@ const ImageUploader = ({ defaultImage }) => {
       }
     }
   `
-  const GET_PHOTOS = gql`
-    query {
-      queryPhoto {
-        id
-        date
-        url
-      }
-    }
-  `
 
-  const { loading, error, data } = useQuery(GET_PHOTOS);
+
   const [addPhoto] = useMutation(ADD_PHOTO);
   const { user } = useAuth0();
 
 
-
-  const handleSave = (url) =>
+  const handleSave = (url) => {
     addPhoto({
       variables: { photo: [
         { url: url, date: format(Date.now(), 'MM/dd/yyyy') }
       ]},
-      refetchQueries: [{
-        query: GET_PHOTOS
-      }]
-  });
+    });
 
-  const generateDate = () => {
-
-    console.log(format(Date.now(), 'MM/dd/yyyy'))
+    setImageSuccessAlert(true);
 
   }
-
 
   async function handleImageUpload() {
       if (fileSelect.current) {
@@ -156,7 +141,8 @@ function handleCancel() {
           style={{ height: 400, width: 600 }}
         />
         <div className="flex justify-between items-center mt-2">
-          <button
+        { imageSuccessAlert && <ImageSaveSuccessAlert imageSuccessAlert={imageSuccessAlert} onClick={() => setImageSuccessAlert(false)}/> }
+        <button
             className="text-gray-700 hover:text-gray-500 border-2 border-gray-300 px-4 py-2 rounded w-1/2"
             onClick={handleCancel}
             type="button"
@@ -169,7 +155,7 @@ function handleCancel() {
             type="button"
           >
             Save to Album
-          </button>
+          </button> 
         </div>
       </>
     ) : (
@@ -207,7 +193,6 @@ function handleCancel() {
       </div>
     )}
   </div>
-  
   );
 }
 

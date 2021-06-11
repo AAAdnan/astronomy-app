@@ -4,9 +4,7 @@ import Nav from '../components/Nav'
 import Head from 'next/head'
 import Image from 'next/image'
 import ParticleComponentStar from '../components/ParticleComponentStar'
-
-
-
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Profile = () => {
   const { loading, user } = useAuth0();
@@ -25,6 +23,12 @@ const Profile = () => {
       </Head>
       <ParticleComponentStar />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center align-center z-10">
+      <motion.div 
+        drag
+        dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+        dragElastic={0.8}>
+        <i class="cursor-pointer fas fa-4x fa-large fa-space-shuttle text-white "></i>
+      </motion.div>
         <div className="text-center bg-black text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
           Profile
         </div>

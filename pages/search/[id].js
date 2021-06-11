@@ -16,6 +16,8 @@ export default function Photo({ result }) {
 
     const id = result.data[0].nasa_id
 
+    const date = result.data[0].date
+  
     return (
         <>
         <Nav />
@@ -24,7 +26,7 @@ export default function Photo({ result }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className="flex justify-center px-6 lg:px-32 bg-black text-white overflow-hidden">
-                <SearchCardInd thumbnailUrl={thumbnailUrl} location={location} description={description} id={id}/>
+                <SearchCardInd thumbnailUrl={thumbnailUrl} location={location} description={description} date={date} id={id}/>
         </div>
         </>
     )

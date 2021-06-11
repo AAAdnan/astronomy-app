@@ -47,7 +47,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
   const [addPhoto] = useMutation(ADD_PHOTO);
     
 
-    const uploadPhotoToAlbum = ( url,date, imagesIds ) => {
+    const uploadPhotoToAlbum = ( url,date ) => {
         addPhoto({
             variables: { photo: [
                 { url: url, date: date }
