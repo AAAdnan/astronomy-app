@@ -11,6 +11,7 @@ import { useRef, useState, useEffect } from "react";
 import image from 'next/image';
 
 const Search = ({ items }) => {
+    
     const [photos, setPhotos] = useState(items);
     const [isLoading, setIsLoading] = useState(true);
     const [query, setQuery] = useState('');

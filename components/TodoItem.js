@@ -8,12 +8,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 import 'todomvc-app-css/index.css'
 
 <Todos
-todos={data.queryTodo}
-addNewTodo={addNewTodo}
-updateTodo={updateTodo}
-deleteTodo={deleteTodo}
-clearCompletedTodos={clearCompletedTodos}
-todosTitle="Todos"
+  todos={data.queryTodo}
+  addNewTodo={addNewTodo}
+  updateTodo={updateTodo}
+  deleteTodo={deleteTodo}
+  clearCompletedTodos={clearCompletedTodos}
+  todosTitle="Todos"
 />
 
 

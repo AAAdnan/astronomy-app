@@ -18,19 +18,11 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
             id
             date
             url
-        }
+            }
         }
     `
 
     const { loading, error, data } = useQuery(GET_PHOTOS);
-
-    // if(data.queryPhoto) {
-
-    //     let imagesIds = data.queryPhoto.map(x => x.url);
-
-    //     console.log(imagesIds)
-
-    // }
 
     const ADD_PHOTO = gql`
         mutation addPhoto($photo: [AddPhotoInput!]!) {
@@ -47,7 +39,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
   const [addPhoto] = useMutation(ADD_PHOTO);
     
 
-    const uploadPhotoToAlbum = ( url,date, imagesIds ) => {
+    const uploadPhotoToAlbum = ( url,date ) => {
         addPhoto({
             variables: { photo: [
                 { url: url, date: date }

@@ -1,13 +1,51 @@
 import Image from "next/image";
 import Link from "next/link"
+import { useState } from 'react'
 import { motion } from 'framer-motion';
+import { useQuery, useMutation, gql } from "@apollo/client"
+import ImageSaveSuccessAlert from '../components/ImageSaveSuccessAlert';
+import RepeatedImageAlert from '../components/RepeatedImageAlert';
+
+const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) => {
+
+    const [ imageSuccessAlert , setImageSuccessAlert ] = useState(false)
+    const [ imageRepeatAlert , setImageRepeatAlert ] = useState(false)
+
+    const GET_PHOTOS = gql`
+    query {
+        queryPhoto {
+                id
+                date
+                url
+            }
+        }
+    `
+
+const { loading, error, data } = useQuery(GET_PHOTOS);
+
+    const ADD_PHOTO = gql`
+        mutation addPhoto($photo: [AddPhotoInput!]!) {
+        addPhoto(input: $photo) {
+            photo {
+                id
+                date
+                url
+            }
+            }
+        }
+    `
+
+    const [addPhoto] = useMutation(ADD_PHOTO);
 
 
-
-const SearchCardInd = ({ thumbnailUrl, nasaId, description, location }) => {
-
-    const uploadPhotoToAlbum = url => {
-        console.log(url)
+    const uploadPhotoToAlbum = ( url,date ) => {
+        addPhoto({
+            variables: { photo: [
+                { url: url, date: date }
+            ]}
+        });
+        
+        setImageSuccessAlert(true);
     }
 
     const buttonVariants = {
@@ -53,6 +91,8 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location }) => {
                     className="text-white border-2 rounded p-4">Save to Album
                     </motion.button>
                 </div>
+                <ImageSaveSuccessAlert imageSuccessAlert={imageSuccessAlert} onClick={() => setImageSuccessAlert(false)}/>
+                <RepeatedImageAlert imageRepeatAlert={imageRepeatAlert} />
             </div>
     )
 }
