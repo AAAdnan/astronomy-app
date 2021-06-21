@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import React from 'react';
-import GoogleMapReact from 'google-map-react'
+import GoogleMapReact from 'google-map-react';
+import { AnimatePresence, motion, useSpring, useCycle } from 'framer-motion';
 
 const ISS_URL = "http://api.open-notify.org/iss-now.json"
 const MAP_KEY = process.env.NEXT_API_KEY
@@ -38,11 +39,68 @@ const Map = () => {
         setLng(data.iss_position.longitude)
     }
 
+    const loaderVariants = {
+        animationOne: {
+          x: [-20, 50],
+          y: [0, -30],
+          transition: {
+            x: {
+              yoyo: 6,
+              duration: 1,
+            },
+            y: {
+              yoyo: 6,
+              duration: 0.5,
+              ease: 'easeOut'
+            }
+          }
+        },
+        animationTwo: {
+            x: [-50, 20],
+            y: [0, -30],
+            transition: {
+              x: {
+                yoyo: 6,
+                duration: 1,
+              },
+              y: {
+                yoyo: 6,
+                duration: 0.5,
+                ease: 'easeOut'
+              }
+            }
+          },
+      }
+
     return (
             <div>
-                <div className="container mx-auto mb-12 flex-col items-center border-4 border-light-blue-500 border-opacity-100 p-12">
-                    <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100 ">Latitude: {lat} </p>
-                    <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100">Longitude: {lng}</p>
+                <div className="container mx-auto mb-12 flex justify-between items-center border-4 border-light-blue-500 border-opacity-100 p-12">
+                    <motion.div
+                        drag
+                        dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+                        dragElastic={0.8}
+                        variants={loaderVariants}
+                        // initial="hidden"
+                        animate="animationOne"
+                        className="text-center"
+                    >
+                        <i class="cursor-pointer fas fa-4x fa-large fa-satellite-dish text-white"></i>
+                    </motion.div>
+                    <div className="mx-auto flex-col items-center">
+                        <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100 ">Latitude: {lat} </p>
+                        <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100">Longitude: {lng}</p>
+                    </div>
+                    <motion.div
+                        drag
+                        dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+                        dragElastic={0.8}
+                        variants={loaderVariants}
+                        // initial="hidden"
+                        animate="animationTwo"
+                        className="text-center"
+                    >
+                        <i class="cursor-pointer fas fa-4x fa-large fa-satellite-dish text-white"></i>
+                    </motion.div>
                 </div>
                 <div className = "map mb-8" style={{ height: '100vh', width: '100%' }}>
                 { center && 
