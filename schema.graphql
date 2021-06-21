@@ -7,7 +7,7 @@ type User {
 type Photo {
    id: ID!,
    date: String! 
-   url: String!
+   url: String! @id
 }
 
 
