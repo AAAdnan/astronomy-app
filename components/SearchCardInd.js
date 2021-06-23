@@ -8,20 +8,15 @@ import RepeatedImageAlert from '../components/RepeatedImageAlert';
 
 const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) => {
 
-    const [ imageSuccessAlert , setImageSuccessAlert ] = useState(false)
-    const [ imageRepeatAlert , setImageRepeatAlert ] = useState(false)
+    console.log(thumbnailUrl)
 
-    const GET_PHOTOS = gql`
-    query {
-        queryPhoto {
-                id
-                date
-                url
-            }
-        }
-    `
+    console.log(nasaId)
 
-const { loading, error, data } = useQuery(GET_PHOTOS);
+    const [error, setError ] = useState(false);
+    const [errorDescription, setErrorDescription] = useState('');
+    const [imageSuccessAlert , setImageSuccessAlert ] = useState(false)
+    const [imageRepeatAlert , setImageRepeatAlert ] = useState(false)
+
 
     const ADD_PHOTO = gql`
         mutation addPhoto($photo: [AddPhotoInput!]!) {
@@ -35,10 +30,17 @@ const { loading, error, data } = useQuery(GET_PHOTOS);
         }
     `
 
-    const [addPhoto] = useMutation(ADD_PHOTO);
+    const [addPhoto] = useMutation(ADD_PHOTO, {
+        onError: (err) => {
+            setErrorDescription(err);
+            setImageSuccessAlert(false);
+            setImageRepeatAlert(true);
+            setError(true);
+            console.log(errorDescription)
+        }
+    });
 
-
-    const uploadPhotoToAlbum = ( url,date ) => {
+    const uploadPhotoToAlbum = ( url , date ) => {
         addPhoto({
             variables: { photo: [
                 { url: url, date: date }
@@ -47,6 +49,7 @@ const { loading, error, data } = useQuery(GET_PHOTOS);
         
         setImageSuccessAlert(true);
     }
+
 
     const buttonVariants = {
         hover: {
@@ -62,7 +65,6 @@ const { loading, error, data } = useQuery(GET_PHOTOS);
 
     return (
             <div className="max-w-4xl mt-8 border-2 border-white flex-col justify-center items-center rounded overflow-hidden shadow-lg">
-                <Link href={`/search/${nasaId}`}>
                 <div className="flex justify-center mt-24">
                     <Image 
                         src={thumbnailUrl} 
@@ -71,7 +73,6 @@ const { loading, error, data } = useQuery(GET_PHOTOS);
                         className="w-full cursor-pointer" 
                         />
                 </div>
-                </Link>        
                 <div className="flex-col items-center px-6 py-4 cursor-pointer">
                     <div className="font-bold text-red-100 text-xl mb-2">
                         {location}
@@ -92,7 +93,7 @@ const { loading, error, data } = useQuery(GET_PHOTOS);
                     </motion.button>
                 </div>
                 <ImageSaveSuccessAlert imageSuccessAlert={imageSuccessAlert} onClick={() => setImageSuccessAlert(false)}/>
-                <RepeatedImageAlert imageRepeatAlert={imageRepeatAlert} />
+                <RepeatedImageAlert error={error} imageRepeatAlert={imageRepeatAlert} onClick={() =>setImageRepeatAlert(false)} />
             </div>
     )
 }

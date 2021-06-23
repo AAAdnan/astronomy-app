@@ -9,20 +9,10 @@ import RepeatedImageAlert from '../components/RepeatedImageAlert';
 
 const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
 
-    const [ imageSuccessAlert , setImageSuccessAlert ] = useState(false)
-    const [ imageRepeatAlert , setImageRepeatAlert ] = useState(false)
-
-    const GET_PHOTOS = gql`
-        query {
-        queryPhoto {
-            id
-            date
-            url
-            }
-        }
-    `
-
-    const { loading, error, data } = useQuery(GET_PHOTOS);
+    const [error, setError ] = useState(false);
+    const [errorDescription, setErrorDescription] = useState('');
+    const [imageSuccessAlert , setImageSuccessAlert ] = useState(false)
+    const [imageRepeatAlert , setImageRepeatAlert ] = useState(false)
 
     const ADD_PHOTO = gql`
         mutation addPhoto($photo: [AddPhotoInput!]!) {
@@ -36,9 +26,15 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
         }
     `
 
-  const [addPhoto] = useMutation(ADD_PHOTO);
+  const [addPhoto] = useMutation(ADD_PHOTO, {
+      onError: (err) => {
+          setErrorDescription(err);
+          setImageSuccessAlert(false);
+          setImageRepeatAlert(true);
+          setError(true);
+      }
+  });
     
-
     const uploadPhotoToAlbum = ( url,date ) => {
         addPhoto({
             variables: { photo: [
@@ -48,6 +44,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
         
         setImageSuccessAlert(true);
     }
+
 
     const buttonVariants = {
         hover: {
@@ -90,8 +87,8 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
                     className="text-white border-2 rounded p-4">Save to Album
                     </motion.button>
                 </div>
-                <ImageSaveSuccessAlert imageSuccessAlert={imageSuccessAlert} onClick={() => setImageSuccessAlert(false)}/>
-                <RepeatedImageAlert imageRepeatAlert={imageRepeatAlert} />
+                <ImageSaveSuccessAlert error={error} imageSuccessAlert={imageSuccessAlert} onClick={() => setImageSuccessAlert(false)}/>
+                <RepeatedImageAlert error={error} imageRepeatAlert={imageRepeatAlert} onClick={() =>setImageRepeatAlert(false)} />
             </div>
     )
 }
