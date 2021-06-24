@@ -41,34 +41,26 @@ const Nav = () => {
         logout,
       } = useAuth0();
 
+
     const LogoutButton = () => {
         return (
-                <button onClick={() => logout({ returnTo: window.location.origin })}>
-                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
+                    <div onClick={() => logout({ returnTo: window.location.origin })}
+                        className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
                         <i className="fas fa-sign-out-alt text-white"></i>
-                    <div className="uppercase">Logout</div>
+                        <div className="uppercase">Logout</div>
                     </div>
-                </button>
-        )
-    }
-
-    const LoginButton = () => {
-        return (
-            <button onClick={() => loginWithRedirect()}>
-                <div className="cursor-pointer text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                        <i className="fas fa-sign-out-alt fa-lg"></i>
-                    <div className="uppercase">Login</div>
-                </div>
-            </button>
         )
     }
 
     const RegisterButton = () => {
         return (
-            <button className="cursor-pointer text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" onClick={() => loginWithRedirect()}>
+            <div
+              onClick={() => loginWithRedirect()}
+              className="md:pl-42 cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium" 
+            >
                     <i className="fas fa-cash-register fa-lg text-white"></i>
                     <div className="uppercase">Login</div>
-            </button>
+            </div>
         )
     }
 
@@ -94,20 +86,6 @@ const Nav = () => {
       )
   }
 
-
-    const ToDoButton = () => {
-        return (
-            <>
-            <Link href="/todo">
-                    <div className="cursor-pointer text-center text-red-200 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium">
-                    <i className="fas fa-record-vinyl text-white"></i>
-                    Todo
-                    </div>
-            </Link>
-            </>
-        )
-    }
-
     const UploadButton = () => {
         return (
             <Link href="/upload">
@@ -129,7 +107,6 @@ const Nav = () => {
           </Link>
       )
   }
-
 
     return(        
     <>
@@ -164,9 +141,7 @@ const Nav = () => {
                 {isAuthenticated && <AlbumButton /> }
                 {isAuthenticated && <SearchButton /> }
                 {isAuthenticated && <ProfileButton /> }
-                <div className="pl-48">
-                  {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
-                </div>
+                {isAuthenticated ? <LogoutButton /> : <RegisterButton />}
                 </div>
               </div>
             </div>

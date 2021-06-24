@@ -1,22 +1,8 @@
 import React from "react"
 import { useQuery, useMutation, gql } from "@apollo/client"
 import { Todos } from "react-todomvc"
-import Head from 'next/head'
-import Nav from '../components/Nav'
-import { useAuth0 } from '@auth0/auth0-react';
 
-import 'todomvc-app-css/index.css'
-
-<Todos
-  todos={data.queryTodo}
-  addNewTodo={addNewTodo}
-  updateTodo={updateTodo}
-  deleteTodo={deleteTodo}
-  clearCompletedTodos={clearCompletedTodos}
-  todosTitle="Todos"
-/>
-
-
+import "react-todomvc/dist/todomvc.css"
 
 const GET_TODOS = gql`
   query {
@@ -39,6 +25,7 @@ const ADD_TODO = gql`
     }
   }
 `
+
 
 const UPDATE_TODO = gql`
   mutation updateTodo($id: ID!, $todo: TodoPatch!) {
@@ -72,27 +59,27 @@ const CLEAR_COMPLETED_TODOS = gql`
   }
 `
 
-const TodoItem = () => {
-  const [add] = useMutation(ADD_TODO)
+function TodoItem() {
+  const [add] = useMutation(ADD_TODO, {
+    onError: (err) => {
+      console.log(err)
+    }
+  })
   const [del] = useMutation(DELETE_TODO)
   const [upd] = useMutation(UPDATE_TODO)
   const [clear] = useMutation(CLEAR_COMPLETED_TODOS)
 
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
 
   const { loading, error, data } = useQuery(GET_TODOS)
-
-  console.log(data)
   if (loading) return <p>Loading</p>
-
-
   if (error) {
     return <p>`Error: ${error.message}`</p>
   }
 
   const addNewTodo = (value) =>
     add({
-      variables: { todo: { value: value, completed: false, user: { username: user.email } } },
+      variables: { todo: { value: value, completed: false } },
       update(cache, { data }) {
         const existing = cache.readQuery({ query: GET_TODOS })
         cache.writeQuery({
@@ -144,14 +131,15 @@ const TodoItem = () => {
       },
     })
 
-
   return (
     <div>
-    <h1>todos</h1>
-    <input
-        className="new-todo"
-        placeholder="What needs to be done?"
-        autoFocus={true}
+      <Todos
+        todos={data.queryTodo}
+        addNewTodo={addNewTodo}
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
+        clearCompletedTodos={clearCompletedTodos}
+        todosTitle="Todos"
       />
     </div>
   )
