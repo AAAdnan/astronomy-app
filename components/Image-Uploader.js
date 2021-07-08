@@ -12,11 +12,6 @@ const ImageUploader = ({ defaultImage }) => {
   const [progress, setProgress] = useState(0);
   const [ imageSuccessAlert , setImageSuccessAlert ] = useState(false);
 
-
-  console.log('this is the image' + image)
-
-  //use effect, send image url to dgraph
-
   const ADD_PHOTO = gql`
     mutation addPhoto($photo: [AddPhotoInput!]!) {
       addPhoto(input: $photo) {
@@ -161,7 +156,7 @@ function handleCancel() {
     ) : (
       <div
         className="bg-gray-200 border-4 border-dashed border-gray-400 rounded-lg"
-        style={{ height: 400, width: 600 }}
+        style={{ height: 250, width: 350 }}
       >
         <form className="flex justify-center items-center h-full">
           {progress === 0 ? (

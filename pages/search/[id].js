@@ -16,8 +16,8 @@ export default function Photo({ result }) {
 
     const nasaId = result.data[0].nasa_id
 
-    const date = result.data[0].date
-  
+    const date = result.data[0].date_created
+      
     return (
         <>
         <Nav />

@@ -8,9 +8,7 @@ import RepeatedImageAlert from '../components/RepeatedImageAlert';
 
 const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) => {
 
-    console.log(thumbnailUrl)
-
-    console.log(nasaId)
+    console.log(date)
 
     const [error, setError ] = useState(false);
     const [errorDescription, setErrorDescription] = useState('');
@@ -30,17 +28,12 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) =>
         }
     `
 
-    const [addPhoto] = useMutation(ADD_PHOTO, {
-        onError: (err) => {
-            setErrorDescription(err);
-            setImageSuccessAlert(false);
-            setImageRepeatAlert(true);
-            setError(true);
-            console.log(errorDescription)
-        }
-    });
+    const [addPhoto, { error: graphqlerror }] = useMutation(ADD_PHOTO);
+
+    console.log(graphqlerror)
 
     const uploadPhotoToAlbum = ( url , date ) => {
+       
         addPhoto({
             variables: { photo: [
                 { url: url, date: date }
@@ -86,10 +79,10 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) =>
                 </div>
                 <div className="px-6 py-4 flex justify-center">
                     <motion.button 
-                    onClick={() => uploadPhotoToAlbum( thumbnailUrl, date )}
-                    variants={buttonVariants}
-                    whileHover="hover" 
-                    className="text-white border-2 rounded p-4">Save to Album
+                        onClick={() => uploadPhotoToAlbum( thumbnailUrl, date )}
+                        variants={buttonVariants}
+                        whileHover="hover" 
+                        className="text-white border-2 rounded p-4">Save to Album
                     </motion.button>
                 </div>
                 <ImageSaveSuccessAlert imageSuccessAlert={imageSuccessAlert} onClick={() => setImageSuccessAlert(false)}/>

@@ -50,16 +50,16 @@ const Home = () => {
       <title>Home</title>
     </Head>
     <Nav />
-    <ParticleComponent />
-    <div className="absolute top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 flex items-center px-6 lg:px-32 text-white">
-      <section className="w-full flex align-center justify-between">
+    <ParticleComponent className="relative"/>
+    <div className="absolute top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 flex-col md:flex items-center px-6 lg:px-32 text-white">
+      <section className="w-full flex flex-col md:flex-row align-center md:justify-between">
         <div className="flex-col align-center">
-            <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white"
+            <h1 className="flex justify-center text-3xl lg:text-5xl font-bold uppercase text-white"
             >
             Topnomi
             </h1>
             <Link href="/iss">
-                <motion.button className="bg-transparent border-white	opacity-70 text-white font-bold mt-4 ml-12 py-2 px-4 rounded-full"
+                <motion.button className="flex-justify-center bg-transparent border-white	opacity-70 text-white font-bold mt-4 ml-12 py-2 px-4 rounded-full"
                 variants={buttonVariants}
                 whileHover="hover"
                 >
@@ -67,11 +67,12 @@ const Home = () => {
                 </motion.button>
             </Link>
         </div>
-        <div className="text-xl lg:text-3xl font-bold uppercase text-white">
+        <div className="flex-col md:flex-row justify-center text-xl lg:text-3xl font-bold uppercase text-white">
             <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1.5 }}
+            className="flex justify-center"
             >
             Take a photo.
             </motion.p>
@@ -79,6 +80,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1.5 }}
+            className="flex justify-center"
             >
             Upload.
             </motion.p>
@@ -86,6 +88,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1.5 }}
+            className="flex justify-center"
             >
             Create your own personal album
             </motion.p>
