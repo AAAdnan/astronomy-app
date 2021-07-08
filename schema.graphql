@@ -10,8 +10,15 @@ type Photo {
    url: String! @id
 }
 
-
-type Todo {
+type Todo @auth(
+  query: { rule: """
+    query($USER: String!) {
+      queryTodo {
+        user(filter: { username: { eq: $USER } }) {
+          __typename
+        }
+      }
+    }"""}), {
   id: ID!
   value: String! @search(by: [fulltext])
   completed: Boolean! @search

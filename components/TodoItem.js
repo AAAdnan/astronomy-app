@@ -1,7 +1,7 @@
 import React from "react"
 import { useQuery, useMutation, gql } from "@apollo/client"
 import { Todos } from "react-todomvc"
-
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import "react-todomvc/dist/todomvc.css"
 
 const GET_TODOS = gql`
@@ -15,8 +15,8 @@ const GET_TODOS = gql`
 `
 
 const ADD_TODO = gql`
-  mutation addTodo($todo: AddTodoInput!) {
-    addTodo(input: [$todo]) {
+  mutation addTodo($todo: [AddTodoInput!]!) {
+    addTodo(input: $todo) {
       todo {
         id
         value
@@ -25,7 +25,6 @@ const ADD_TODO = gql`
     }
   }
 `
-
 
 const UPDATE_TODO = gql`
   mutation updateTodo($id: ID!, $todo: TodoPatch!) {
@@ -60,18 +59,17 @@ const CLEAR_COMPLETED_TODOS = gql`
 `
 
 function TodoItem() {
-  const [add] = useMutation(ADD_TODO, {
-    onError: (err) => {
-      console.log(err)
-    }
-  })
+
+  const [add] = useMutation(ADD_TODO)  
   const [del] = useMutation(DELETE_TODO)
   const [upd] = useMutation(UPDATE_TODO)
   const [clear] = useMutation(CLEAR_COMPLETED_TODOS)
 
-
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const { loading, error, data } = useQuery(GET_TODOS)
+
+
   if (loading) return <p>Loading</p>
   if (error) {
     return <p>`Error: ${error.message}`</p>
@@ -79,7 +77,7 @@ function TodoItem() {
 
   const addNewTodo = (value) =>
     add({
-      variables: { todo: { value: value, completed: false } },
+      variables: { todo: { value: value, completed: false, user: { username: user.email } } },
       update(cache, { data }) {
         const existing = cache.readQuery({ query: GET_TODOS })
         cache.writeQuery({
@@ -93,6 +91,8 @@ function TodoItem() {
         })
       },
     })
+
+
 
   const updateTodo = (modifiedTodo) =>
     upd({
@@ -131,6 +131,23 @@ function TodoItem() {
       },
     })
 
+    const logInOut = !isAuthenticated ? (
+      <p className="text-white">
+        <a href="#" onClick={loginWithRedirect}>Log in</a> to use the app. 
+      </p>
+    ) : (
+      <p className="text-white">
+        <a href="#"
+          onClick={() => {
+            logout({ returnTo: 'http://localhost:3000' })
+          }}
+        >
+          Log out
+        </a>{" "}
+        once you are finished, {user.email}.
+      </p>
+    );
+
   return (
     <div>
       <Todos
@@ -141,6 +158,7 @@ function TodoItem() {
         clearCompletedTodos={clearCompletedTodos}
         todosTitle="Todos"
       />
+      {logInOut}
     </div>
   )
 }

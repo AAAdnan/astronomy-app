@@ -12,10 +12,8 @@ const Todos = () => {
     <Head>
       <title>Album</title>
     </Head>
-    <div className="h-screen">
       <div className="container mx-auto">
        <TodoItem />
-      </div>
       </div>
   </>
   )
