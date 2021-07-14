@@ -5,6 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import ParticleComponentStar from '../components/ParticleComponentStar'
 import { AnimatePresence, motion, useSpring } from 'framer-motion'
+import Sparkles from '../components/Sparkle';
 
 const Profile = () => {
   const { loading, user } = useAuth0();
@@ -18,8 +19,6 @@ const Profile = () => {
       transition: { type: 'spring', stiffness: 20 }
     }
   }
-
-  console.log(user) 
 
   if (loading || !user) {
     return <div>Loading...</div>;
@@ -45,7 +44,11 @@ const Profile = () => {
           <i class="cursor-pointer fas fa-4x fa-large fa-space-shuttle text-white"></i>
         </motion.div>
           <div className="text-center bg-black text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
+          <Sparkles>
+
             Profile
+          </Sparkles>
+
           </div>
           <div className="container mx-auto flex justify-center text-white pt-12 ">
             <div className="profile border-4 border-light-blue-500 border-opacity-100">

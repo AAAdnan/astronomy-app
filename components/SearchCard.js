@@ -6,6 +6,7 @@ import { useQuery, useMutation, gql } from "@apollo/client"
 import { format, compareAsc } from 'date-fns'
 import ImageSaveSuccessAlert from '../components/ImageSaveSuccessAlert';
 import RepeatedImageAlert from '../components/RepeatedImageAlert';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
 
@@ -14,6 +15,14 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
     const [imageSuccessAlert , setImageSuccessAlert ] = useState(false)
     const [imageRepeatAlert , setImageRepeatAlert ] = useState(false)
 
+    if(errorDescription) {
+        console.log(errorDescription)
+    }
+
+
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+
     const ADD_PHOTO = gql`
         mutation addPhoto($photo: [AddPhotoInput!]!) {
         addPhoto(input: $photo) {
@@ -21,6 +30,9 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
                 id
                 date
                 url
+                user {
+                    username
+                }
             }
             }
         }
@@ -36,15 +48,14 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
   });
     
     const uploadPhotoToAlbum = ( url,date ) => {
+        console.log(user.email, url, date)
         addPhoto({
             variables: { photo: [
-                { url: url, date: date }
+                { url: url, date: date, user: { username: user.email } }
             ]}
-        });
-        
+        });        
         setImageSuccessAlert(true);
     }
-
 
     const buttonVariants = {
         hover: {

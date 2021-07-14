@@ -2,12 +2,22 @@ type User {
   username: String! @id @search(by: [hash])
   name: String
   todos: [Todo] @hasInverse(field:user)
+  photos: [Photo] @hasInverse(field: user)
 }
 
-type Photo {
-   id: ID!,
-   date: String! 
-   url: String! @id
+type Photo @auth(
+  query: { rule: """
+    query($USER: String!) {
+      queryPhoto {
+        user(filter: { username: { eq: $USER } }) {
+          __typename
+        }
+      }
+    }"""}), {
+  id: ID!
+  date: String! @search(by: [fulltext])
+  url: String! @id @search(by: [fulltext])
+  user: User
 }
 
 type Todo @auth(
