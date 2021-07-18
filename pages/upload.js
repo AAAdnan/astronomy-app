@@ -5,6 +5,8 @@ import React from "react";
 import Link from 'next/link';
 import ParticleComponentStar from '../components/ParticleComponentStar';
 import { AnimatePresence, motion, useSpring, useCycle } from 'framer-motion'
+import Sparkles from '../components/Sparkle';
+
 
 
 import ImageUploader from '../components/Image-Uploader';
@@ -72,7 +74,9 @@ const Upload = () => {
       <i class="cursor-pointer fas fa-4x fa-large fa-user-astronaut text-white"></i>
       </motion.div>
       <div className="text-center bg-black text-lg md:text-6xl font-bold uppercase text-red-100 md:pb-8 pt-8">
-        Upload Your Photo
+        <Sparkles>
+          Upload Your Photo
+        </Sparkles>
       </div>
       <div className="container mx-auto flex justify-center text-white pt-12 ">
        <ImageUploader />

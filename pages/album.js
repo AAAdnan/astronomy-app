@@ -16,6 +16,9 @@ const Album = () => {
         id
         date
         url
+        user {
+          username
+        }
       }
     }
   `
