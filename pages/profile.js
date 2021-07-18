@@ -6,9 +6,15 @@ import Image from 'next/image'
 import ParticleComponentStar from '../components/ParticleComponentStar'
 import { AnimatePresence, motion, useSpring } from 'framer-motion'
 import Sparkles from '../components/Sparkle';
+import useBoop from '../hooks/use-boops';
+import { animated } from 'react-spring';
+
 
 const Profile = () => {
   const { loading, user } = useAuth0();
+
+  const [style, trigger] = useBoop({ rotation: 15, scale: 1.10, timing: 150 });
+
 
   const nextVariants = {
     hidden: {
@@ -32,23 +38,26 @@ const Profile = () => {
       </Head>
       <ParticleComponentStar />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center align-center z-10">
-        <motion.div 
-          drag
-          dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
-          dragElastic={0.8}
-          variants={nextVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-center"
-          >
-          <i class="cursor-pointer fas fa-4x fa-large fa-space-shuttle text-white"></i>
-        </motion.div>
+          <motion.div 
+            drag
+            dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+            dragElastic={0.8}
+            variants={nextVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center"
+            >
+            <i class="cursor-pointer fas fa-4x fa-large fa-space-shuttle text-white"></i>
+          </motion.div>
           <div className="text-center bg-black text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
-          <Sparkles>
-
-            Profile
-          </Sparkles>
-
+            <Sparkles>
+              Profile
+            </Sparkles>
+            <div className="text-center pt-8">
+              <animated.div style={style} onMouseEnter={trigger} >
+                <i class="cursor-pointer text-center far fa-user-circle text-white"></i>
+              </animated.div>
+            </div>
           </div>
           <div className="container mx-auto flex justify-center text-white pt-12 ">
             <div className="profile border-4 border-light-blue-500 border-opacity-100">
