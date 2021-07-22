@@ -3,10 +3,15 @@ import Link from "next/link";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Transition } from "@headlessui/react";
 import { AnimatePresence, motion } from 'framer-motion'
+import spaceSound from '../public/space-sound.mp3'
+
 
 const Nav = () => {
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const [play] = useSound(spaceSound);
+
 
     const svgVariants = {
         hidden: { rotate: -180 },
@@ -191,7 +196,6 @@ const Nav = () => {
             </div>
           </div>
         </div>
-
         <Transition
           show={isOpen}
           enter="transition ease-out duration-100 transform"

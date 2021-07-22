@@ -8,12 +8,17 @@ import { AnimatePresence, motion, useSpring } from 'framer-motion'
 import Sparkles from '../components/Sparkle';
 import useBoop from '../hooks/use-boops';
 import { animated } from 'react-spring';
+import useSound from 'use-sound';
+
+import spaceSound from '../public/space-sound.mp3'
 
 
 const Profile = () => {
   const { loading, user } = useAuth0();
 
   const [style, trigger] = useBoop({ rotation: 15, scale: 1.10, timing: 150 });
+
+  const [play] = useSound(spaceSound);
 
 
   const nextVariants = {
@@ -63,6 +68,9 @@ const Profile = () => {
             <div className="profile border-4 border-light-blue-500 border-opacity-100">
                 <img className="profile-img" src={user.picture} alt="Profile" />
             </div>
+            <button onClick={play}>
+              hello
+            </button>
             <div className="pl-12 pt-6 pr-6 border-4 border-light-blue-500 border-opacity-100">
               <p>Name: <strong>{user.name}</strong></p>
               <p>Email: <strong>{user.email}</strong></p>
