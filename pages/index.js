@@ -6,6 +6,7 @@ import React from "react";
 import { motion } from 'framer-motion';
 import ParticleComponent from '../components/ParticleComponent'
 import LandingPage from '../components/LandingPage'
+import Sparkles from '../components/Sparkle';
 
 
 // type User {
@@ -56,7 +57,9 @@ const Home = () => {
         <div className="flex-col align-center">
             <h1 className="flex justify-center text-3xl lg:text-5xl font-bold uppercase text-white"
             >
-            Topnomi
+            <Sparkles>
+              Topnomi
+            </Sparkles>
             </h1>
             <Link href="/iss">
                 <motion.button className="flex-justify-center bg-transparent border-white	opacity-70 text-white font-bold mt-4 ml-12 py-2 px-4 rounded-full"

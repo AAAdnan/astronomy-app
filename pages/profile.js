@@ -68,9 +68,6 @@ const Profile = () => {
             <div className="profile border-4 border-light-blue-500 border-opacity-100">
                 <img className="profile-img" src={user.picture} alt="Profile" />
             </div>
-            <button onClick={play}>
-              hello
-            </button>
             <div className="pl-12 pt-6 pr-6 border-4 border-light-blue-500 border-opacity-100">
               <p>Name: <strong>{user.name}</strong></p>
               <p>Email: <strong>{user.email}</strong></p>

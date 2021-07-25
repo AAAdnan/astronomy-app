@@ -10,14 +10,14 @@ type Photo @auth(
     query($USER: String!) {
       queryPhoto {
         user(filter: { username: { eq: $USER } }) {
-          __typename
+          username
         }
       }
     }"""}), {
   id: ID!
   date: String! @search(by: [fulltext])
   url: String! @id @search(by: [fulltext])
-  user: User
+  user: User!
 }
 
 type Todo @auth(
@@ -49,4 +49,4 @@ type Album @auth(
   photos:[Photo]
 }
 
-# Dgraph.Authorization { "VerificationKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6wz3RnIfCTqrBbjU9U+\nVypQAFYPheziL45DzDC4+6l3HbPtC8cttPUL46vLELBox0t89En1vgXnBnP0x3aA\ngf784RVFQ2YJ7iYeFOChau1OEff7nDfLjU5wETPqwH8SL4am66QgthOgTowUcYln\ne195N4XmVXvq81bX1/gO0uH1MhFSa0S5Mn5uwT+7zBBB6UdXhdRdHLZGFdD22Tt/\nFDID/QxnWHIf5zIClxAbZ+GNvXAVPDyTjnIFyk+6EUgCYrPWq5gKZB0eGND/yvv4\nwmAs2jjihCvPsEcIVIv9TAN2R9F861JcOB9CZ/uDsrOfLbehqa1he3I73uIQdzUb\nTQIDAQAB\n-----END PUBLIC KEY-----","Header": "Authorization","Namespace": "https://dgraph.io/jwt/claims","Algo": "RS256","Audience":["RMFhLDweiuNjrTgpCA8kJFe9YSbbJo0B"]}
+# Dgraph.Authorization { "VerificationKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6wz3RnIfCTqrBbjU9U+\nVypQAFYPheziL45DzDC4+6l3HbPtC8cttPUL46vLELBox0t89En1vgXnBnP0x3aA\ngf784RVFQ2YJ7iYeFOChau1OEff7nDfLjU5wETPqwH8SL4am66QgthOgTowUcYln\ne195N4XmVXvq81bX1/gO0uH1MhFSa0S5Mn5uwT+7zBBB6UdXhdRdHLZGFdD22Tt/\nFDID/QxnWHIf5zIClxAbZ+GNvXAVPDyTjnIFyk+6EUgCYrPWq5gKZB0eGND/yvv4\nwmAs2jjihCvPsEcIVIv9TAN2R9F861JcOB9CZ/uDsrOfLbehqa1he3I73uIQdzUb\nTQIDAQAB\n-----END PUBLIC KEY-----","Header": "X-Auth-Token","Namespace": "https://dgraph.io/jwt/claims","Algo": "RS256","Audience":["RMFhLDweiuNjrTgpCA8kJFe9YSbbJo0B"]}

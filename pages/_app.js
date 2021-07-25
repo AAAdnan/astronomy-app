@@ -41,7 +41,7 @@ const AuthorizedApolloProvider = ({ children }) => {
     return {
       headers: {
         ...headers,
-        "X-Auth-Token": token ? token.__raw: "",
+        "X-Auth-Token": token ? token.__raw : "",
       },
     }
   })
