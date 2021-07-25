@@ -3,10 +3,18 @@ import Link from "next/link";
 import { useAuth0 } from '@auth0/auth0-react';
 import { Transition } from "@headlessui/react";
 import { AnimatePresence, motion } from 'framer-motion'
+import useSound from 'use-sound';
+
+import spaceSound from '../public/space-sound.mp3'
+
+
 
 const Nav = () => {
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const [play] = useSound(spaceSound);
+
 
     const svgVariants = {
         hidden: { rotate: -180 },
@@ -119,7 +127,9 @@ const Nav = () => {
                     <motion.div 
                         drag
                         dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
-                        dragElastic={0.8}                    >
+                        dragElastic={0.8}
+                        onClick={play}
+                        >
                         <i className="cursor-pointer fas fa-rocket fa-3x text-white hover:text-red-100"></i>
                     </motion.div>
                     </Link>
@@ -191,7 +201,6 @@ const Nav = () => {
             </div>
           </div>
         </div>
-
         <Transition
           show={isOpen}
           enter="transition ease-out duration-100 transform"

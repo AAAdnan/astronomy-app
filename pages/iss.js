@@ -5,6 +5,7 @@ import Map from '../components/Map'
 import React from "react";
 import { useState } from 'react';
 import Link from 'next/link'
+import Sparkles from '../components/Sparkle';
 
 const Geolocation = () => {
   return(
@@ -15,7 +16,9 @@ const Geolocation = () => {
     </Head>
     <div className="h-auto px-6 lg:px-32 bg-black text-white">
       <div className="text-center bg-black text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
-        ISS Tracker
+        <Sparkles >
+          ISS Tracker
+        </Sparkles>
       </div>
     <Map />     
     </div>

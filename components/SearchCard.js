@@ -33,7 +33,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
                 user {
                     username
                 }
-            }
+                }
             }
         }
     `
@@ -50,9 +50,9 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
     const uploadPhotoToAlbum = ( url,date ) => {
         console.log(user.email, url, date)
         addPhoto({
-            variables: { photo: [
+            variables: { photo: 
                 { url: url, date: date, user: { username: user.email } }
-            ]}
+            }
         });        
         setImageSuccessAlert(true);
     }

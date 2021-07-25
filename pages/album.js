@@ -43,7 +43,7 @@ const Album = () => {
         <div className="grid grid-cols-3 gap-4">
         { data ? 
           data.queryPhoto.map(image => (
-            <ImageCard date={image.date} image={image.url} id={image.id} />
+            <ImageCard date={image.date} image={image.url} id={image.id} user={image.user} />
             ))
             :
             <p className="text-white">No Saved Images</p>

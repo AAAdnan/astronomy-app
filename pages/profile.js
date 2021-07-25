@@ -8,12 +8,17 @@ import { AnimatePresence, motion, useSpring } from 'framer-motion'
 import Sparkles from '../components/Sparkle';
 import useBoop from '../hooks/use-boops';
 import { animated } from 'react-spring';
+import useSound from 'use-sound';
+
+import spaceSound from '../public/space-sound.mp3'
 
 
 const Profile = () => {
   const { loading, user } = useAuth0();
 
   const [style, trigger] = useBoop({ rotation: 15, scale: 1.10, timing: 150 });
+
+  const [play] = useSound(spaceSound);
 
 
   const nextVariants = {

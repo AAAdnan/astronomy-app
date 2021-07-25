@@ -4,7 +4,7 @@ const ImageSaveSuccessAlert = props => {
 
     return(
         <AnimatePresence exitBeforeEnter>
-        { props.imageSuccessAlert && (
+        { props.imageSuccessAlert && !props.error && (
             <motion.div 
             onClick={() => props.onClick(false)}
             class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-green-100 bg-green-700 border border-green-700 "
