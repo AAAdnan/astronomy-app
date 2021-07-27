@@ -35,7 +35,7 @@ const Search = ({ items }) => {
         </Head>
         <div className="min-h-screen bg-black overflow-hidden">
             <div className="container mx-auto">
-                <div className="text-center text-6xl font-bold uppercase text-white pb-8 pt-8">
+                <div className="text-center text-3xl md:text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
                     Photo Search
                 </div>
                 <div className='max-w-sm rounded overflow-hidden my-10 mx-auto'>

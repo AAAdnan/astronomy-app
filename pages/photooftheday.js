@@ -20,7 +20,7 @@ function getPhotoOfTheDay(props) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1.5 }}
         >
-            <section className="w-full flex flex-col justify-center items-center mt-16 pb-24">
+            <section className="w-full flex flex-col items-center mt-16 pb-24">
                 <div className="text-4xl lg:text-3xl font-bold uppercase text-red-200 mb-8">
                     {props.title}
                 </div>

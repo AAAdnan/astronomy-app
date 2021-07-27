@@ -42,7 +42,7 @@ const Profile = () => {
         <title>Profile</title>
       </Head>
       <ParticleComponentStar />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center align-center z-10">
+      <div className="absolute top-4/5 md:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center align-center z-10">
           <motion.div 
             drag
             dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
