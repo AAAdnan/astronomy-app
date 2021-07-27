@@ -13,32 +13,41 @@ const ImageUploader = ({ defaultImage }) => {
   const [ imageSuccessAlert , setImageSuccessAlert ] = useState(false);
 
   const ADD_PHOTO = gql`
-    mutation addPhoto($photo: [AddPhotoInput!]!) {
-      addPhoto(input: $photo) {
-        photo {
-          id
-          date
-          url
+        mutation addPhoto($photo: [AddPhotoInput!]!) {
+        addPhoto(input: $photo) {
+            photo {
+                id
+                date
+                url
+                user {
+                    username
+                }
+                }
+            }
         }
-      }
+    `
+
+  const [addPhoto] = useMutation(ADD_PHOTO, {
+    onError: (err) => {
+      setImageSuccessAlert(false);
     }
-  `
+  });
 
-
-  const [addPhoto] = useMutation(ADD_PHOTO);
   const { user } = useAuth0();
 
 
   const handleSave = (url) => {
+
     addPhoto({
       variables: { photo: [
-        { url: url, date: format(Date.now(), 'MM/dd/yyyy') }
+        { url: url, date: format(Date.now(), 'MM/dd/yyyy'), user: { username: user.email} }
       ]},
     });
 
     setImageSuccessAlert(true);
 
   }
+
 
   async function handleImageUpload() {
       if (fileSelect.current) {
@@ -47,10 +56,7 @@ const ImageUploader = ({ defaultImage }) => {
   }
 
   function handleFiles(files) {
-    console.log("handleFiles");
-    console.log(files);
   for (let i = 0; i < files.length; i++) {
-    console.log(files[i]);
     uploadFile(files[i]);
   }
 }

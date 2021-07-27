@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, gql } from "@apollo/client"
 import ImageSaveSuccessAlert from '../components/ImageSaveSuccessAlert';
 import RepeatedImageAlert from '../components/RepeatedImageAlert';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) => {
 
@@ -16,6 +17,9 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) =>
     const [imageRepeatAlert , setImageRepeatAlert ] = useState(false)
 
 
+    const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+
     const ADD_PHOTO = gql`
         mutation addPhoto($photo: [AddPhotoInput!]!) {
         addPhoto(input: $photo) {
@@ -23,7 +27,10 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) =>
                 id
                 date
                 url
-            }
+                user {
+                    username
+                }
+                }
             }
         }
     `
@@ -32,14 +39,13 @@ const SearchCardInd = ({ thumbnailUrl, nasaId, description, location, date }) =>
 
     console.log(graphqlerror)
 
-    const uploadPhotoToAlbum = ( url , date ) => {
-       
+    const uploadPhotoToAlbum = ( url,date ) => {
+        console.log(user.email, url, date)
         addPhoto({
-            variables: { photo: [
-                { url: url, date: date }
-            ]}
-        });
-        
+            variables: { photo: 
+                { url: url, date: date, user: { username: user.email } }
+            }
+        });        
         setImageSuccessAlert(true);
     }
 
