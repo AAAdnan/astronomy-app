@@ -33,7 +33,7 @@ const Home = () => {
     <div className="absolute top-3/4 md:top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 flex-col md:pt-8 md:flex items-center px-6 lg:px-32 text-white">
       <section className="w-full flex flex-col md:flex-row align-center md:justify-between md:mt-4">
         <div className="flex flex-col items-center">
-            <h1 className="text-3xl lg:text-5xl font-bold uppercase text-white">
+            <h1 className="text-3xl lg:text-5xl font-bold uppercase text-red-100">
               <Sparkles>
                 Topnomi
               </Sparkles>
@@ -68,7 +68,7 @@ const Home = () => {
             transition={{ delay: 1.5, duration: 1.5 }}
             className="flex justify-center"
             >
-            Create your own personal album
+            Create your own album
             </motion.p>
         </div>
       </section>
