@@ -15,13 +15,13 @@ function getPhotoOfTheDay(props) {
         <Head>
             <title>Photo of the day</title>
         </Head>
-        <motion.div className="h-screen flex items-center px-6 lg:px-32 text-white overflow-hidden"
+        <motion.div className="h-screen flex md:items-center text-white overflow-hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1.5 }}
         >
-            <section className="w-full flex flex-col items-center mt-16 pb-24">
-                <div className="text-4xl lg:text-3xl font-bold uppercase text-red-200 mb-8">
+            <section className="w-full flex flex-col items-center pb-24">
+                <div className="text-lg md:text-3xl font-bold uppercase text-red-200 mb-8">
                     {props.title}
                 </div>
                 {<div className="mb-8">

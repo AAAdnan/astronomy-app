@@ -84,11 +84,11 @@ const Map = () => {
                         animate="animationOne"
                         className="text-center"
                     >
-                        <i class="cursor-pointer fas fa-4x fa-large fa-satellite-dish text-white"></i>
+                        <i className="cursor-pointer fas fa-3x fa-large fa-satellite-dish text-white"></i>
                     </motion.div>
                     <div className="mx-auto flex-col items-center">
-                        <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100 ">Latitude: {lat} </p>
-                        <p className="flex justify-center text-3xl lg:text-3xl font-bold uppercase text-red-100">Longitude: {lng}</p>
+                        <p className="flex justify-center text-md md:text-3xl font-bold uppercase text-red-100 ">Latitude: {lat} </p>
+                        <p className="flex justify-center text-md md:text-3xl font-bold uppercase text-red-100">Longitude: {lng}</p>
                     </div>
                     <motion.div
                         drag
@@ -99,7 +99,7 @@ const Map = () => {
                         animate="animationTwo"
                         className="text-center"
                     >
-                        <i class="cursor-pointer fas fa-4x fa-large fa-satellite-dish text-white"></i>
+                        <i className="cursor-pointer fas fa-3x fa-large fa-satellite-dish text-white"></i>
                     </motion.div>
                 </div>
                 <div className = "map mb-8" style={{ height: '100vh', width: '100%' }}>
