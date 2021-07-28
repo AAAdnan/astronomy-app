@@ -15,7 +15,7 @@ const Geolocation = () => {
       <title>ISS Tracker</title>
     </Head>
     <div className="h-auto px-6 lg:px-32 bg-black text-white">
-      <div className="text-center bg-black text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
+      <div className="text-center bg-black text-lg md:text-6xl font-bold uppercase text-red-100 pb-8 pt-8">
         <Sparkles >
           ISS Tracker
         </Sparkles>
