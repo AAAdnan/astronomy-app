@@ -38,12 +38,14 @@ const Home = () => {
                 Topnomi
               </Sparkles>
             </h1>
-            <motion.button className="bg-transparent text-white font-bold mt-6 mb-6 py-2 px-4 rounded-full"
-                variants={buttonVariants}
-                whileHover="hover"
-            >
-                  Near Me
-            </motion.button>
+            <Link href="/iss" >
+              <motion.button className="bg-transparent text-white font-bold mt-6 mb-6 py-2 px-4 rounded-full"
+                  variants={buttonVariants}
+                  whileHover="hover"
+              >
+                    Near Me
+              </motion.button>
+            </Link>
             </div>
         <div className="flex-col md:flex-row justify-center text-xl lg:text-3xl font-bold uppercase text-white">
             <motion.p 

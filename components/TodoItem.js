@@ -139,7 +139,7 @@ function TodoItem() {
       <p className="text-white">
         <a href="#"
           onClick={() => {
-            logout({ returnTo: 'http://localhost:3000' })
+            logout({ returnTo: 'https://astronomy-app-aaadnan.vercel.app/' })
           }}
         >
           Log out
