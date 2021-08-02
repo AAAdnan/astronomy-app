@@ -59,7 +59,7 @@ export default function App({ Component, pageProps, router }) {
     <Auth0Provider
       domain="dev-u0g-ju9g.eu.auth0.com"
       clientId="RMFhLDweiuNjrTgpCA8kJFe9YSbbJo0B"
-      redirectUri={'http://localhost:3000/'}
+      redirectUri={'https://astronomy-app-aaadnan.vercel.app/'}
     >
     <AuthorizedApolloProvider>
         <AnimatePresence initial={false}>
