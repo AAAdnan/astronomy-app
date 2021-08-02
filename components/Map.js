@@ -3,7 +3,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { AnimatePresence, motion, useSpring, useCycle } from 'framer-motion';
 
-const ISS_URL = "http://api.open-notify.org/iss-now.json"
+const ISS_URL = "https://api.wheretheiss.at/v1/satellites/25544"
 const MAP_KEY = process.env.NEXT_API_KEY
 
 const SpaceStation = () => <div><i className="fas fa-rocket fa-3x text-white hover:text-red-500"></i></div>
@@ -35,8 +35,11 @@ const Map = () => {
     const loadISSData = async () => {
         const response = await fetch(ISS_URL);
         const data = await response.json()
-        setLat(data.iss_position.latitude)
-        setLng(data.iss_position.longitude)
+
+        const latTwo = data.latitude.toFixed(2);
+
+        setLat(data.latitude.toFixed(5))
+        setLng(data.longitude.toFixed(5))
     }
 
     const loaderVariants = {
@@ -87,6 +90,7 @@ const Map = () => {
                         <i className="cursor-pointer fas fa-3x fa-large fa-satellite-dish text-white"></i>
                     </motion.div>
                     <div className="mx-auto flex-col items-center">
+                        <p className="pb-8 text-white font-mono text-center">The International Space Station is moving at close to 28,000 km/h so its location changes really fast! Where is it right now?</p>
                         <p className="flex justify-center text-md md:text-3xl font-bold uppercase text-red-100 ">Latitude: {lat} </p>
                         <p className="flex justify-center text-md md:text-3xl font-bold uppercase text-red-100">Longitude: {lng}</p>
                     </div>
