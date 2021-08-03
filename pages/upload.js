@@ -61,7 +61,7 @@ const Upload = () => {
       <title>Upload</title>
     </Head>
     <ParticleComponentStar/>
-    <div className="md:absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col md:justify-center align-center">
+    <div className="absolute top-1/2 md:top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col md:justify-center align-center">
       <motion.div 
         drag
         dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}

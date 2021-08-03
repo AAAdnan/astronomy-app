@@ -83,10 +83,10 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
                     <div className="font-bold text-red-100 text-xl mb-2">
                         {location}
                     </div>
-                    <div className="font-bold text-red-100 text-xl mb-2">
+                    <div className="font-bold text-red-100 text-xl mb-2 hidden">
                         Nasa ID: {nasaId}
                     </div>
-                    <div className="font-bold text-red-100 text-sm mb-2">
+                    <div className="font-bold text-red-100 text-sm mb-2 hidden">
                         {description}
                     </div> 
                 </div>
