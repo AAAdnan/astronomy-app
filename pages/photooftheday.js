@@ -15,20 +15,20 @@ function getPhotoOfTheDay(props) {
         <Head>
             <title>Photo of the day</title>
         </Head>
-        <motion.div className="h-screen flex md:items-center text-white overflow-hidden"
+        <motion.div className="h-screen flex md:items-center text-white overflow-hidden p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1.5 }}
         >
             <section className="w-full flex flex-col items-center pb-24">
-                <div className="text-lg md:text-3xl font-bold uppercase text-red-200 mb-8">
+                <div className="text-lg md:text-3xl font-bold uppercase text-red-200 mb-8 text-center">
                     {props.title}
                 </div>
                 {<div className="mb-8">
                     {props.type === 'youtube' ? <ReactPlayer url={props.imageUrl}  /> : <Image width={450} height={300} src={props.imageUrl} />}
                 </div> }
                 <div >
-                <h1 className="text-sm lg:text-base font-bold text-white">
+                <h1 className="text-sm lg:text-base font-bold text-white text-center">
                     {props.explanation}
                 </h1>
                 </div>
