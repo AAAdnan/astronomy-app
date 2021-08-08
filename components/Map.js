@@ -2,6 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { AnimatePresence, motion, useSpring, useCycle } from 'framer-motion';
+import { Loader } from "@googlemaps/js-api-loader"
+
 
 const ISS_URL = "https://api.wheretheiss.at/v1/satellites/25544"
 const MAP_KEY = process.env.NEXT_API_KEY
@@ -9,6 +11,7 @@ const MAP_KEY = process.env.NEXT_API_KEY
 const SpaceStation = () => <div><i className="fas fa-rocket fa-3x text-white hover:text-red-500"></i></div>
 
 const Map = () => {
+
 
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
@@ -28,8 +31,6 @@ const Map = () => {
          setCenter({lat: lat, lng: lng })
         }
 
-        console.log({ lat,lng })
-
     }, [lat, lng])
 
     const loadISSData = async () => {
@@ -38,8 +39,8 @@ const Map = () => {
 
         const latTwo = data.latitude.toFixed(2);
 
-        setLat(data.latitude.toFixed(5))
-        setLng(data.longitude.toFixed(5))
+        setLat(data.latitude.toFixed(2))
+        setLng(data.longitude.toFixed(2))
     }
 
     const loaderVariants = {
@@ -119,6 +120,7 @@ const Map = () => {
                 />
                 </GoogleMapReact> }
                 </div>
+                <div id="map"></div>
             </div>
         )
  
