@@ -45,7 +45,7 @@ const Map = () => {
 
     const loaderVariants = {
         animationOne: {
-          x: [-20, 50],
+          x: [0, 0],
           y: [0, -30],
           transition: {
             x: {
@@ -60,7 +60,7 @@ const Map = () => {
           }
         },
         animationTwo: {
-            x: [-50, 20],
+            x: [0, 0],
             y: [0, -30],
             transition: {
               x: {
