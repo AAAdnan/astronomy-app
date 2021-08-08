@@ -12,18 +12,6 @@ const SpaceStation = () => <div><i className="fas fa-rocket fa-3x text-white hov
 
 const Map = () => {
 
-  // const loader = new Loader({
-  //   apiKey: "AIzaSyDuNvlk5TahBHSLzi4UDxGLef5508Fkga4",
-  //   version: "weekly",
-  // });
-
-  // loader.load().then(() => {
-  //   map = new google.maps.Map(document.getElementById("map"), {
-  //     center: { lat: -34.397, lng: 150.644 },
-  //     zoom: 8,
-  //   });
-  // });
-  
 
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
@@ -51,8 +39,8 @@ const Map = () => {
 
         const latTwo = data.latitude.toFixed(2);
 
-        setLat(data.latitude.toFixed(5))
-        setLng(data.longitude.toFixed(5))
+        setLat(data.latitude.toFixed(2))
+        setLng(data.longitude.toFixed(2))
     }
 
     const loaderVariants = {
