@@ -80,7 +80,7 @@ const SearchCard = ({ thumbnailUrl, nasaId, description, location, date }) => {
                     />
                 </Link>        
                 <div className="px-6 py-4 cursor-pointer">
-                    <div className="font-bold text-red-100 text-xl mb-2">
+                    <div className="font-bold text-red-100 text-base md:text-xl mb-2">
                         {location}
                     </div>
                     <div className="font-bold text-red-100 text-xl mb-2 hidden">
